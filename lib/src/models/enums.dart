@@ -65,7 +65,8 @@ enum ItakuVisibility {
 enum ItakuOrdering {
   hotnessScore("hotness_score", "Trending"),
   dateAdded("date_added", "New"),
-  numLikes("num_likes", "Likes");
+  numLikes("num_likes", "Likes"),
+  numFollowers("num_followers", "Followers");
 
   final String key;
   final String name;

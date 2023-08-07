@@ -18,7 +18,8 @@ class ItakuApi {
 
   Future<Map<String, dynamic>> request(String url,
       [Map<String, dynamic>? query]) async {
-    return (await _dio.get(url, queryParameters: query)).data!;
+    final res = await _dio.get(url, queryParameters: query);
+    return res.data!;
   }
 
   Future<ItakuPaginator<ItakuFeedItem>> getFeed({
@@ -186,5 +187,68 @@ class ItakuApi {
     final res = await request("/commissions/", query);
     return ItakuPaginator<ItakuCommission>.fromJson(
         res, ItakuCommission.fromJson, this);
+  }
+
+  Future<ItakuPaginator<ItakuUser>> getUsers({
+    ItakuOrdering ordering = ItakuOrdering.dateAdded,
+    bool descending = true,
+    bool isArtist = false,
+    bool takingComms = false,
+    bool isSupporter = false,
+    bool sfwOnly = true,
+    bool hasAdProfile = false,
+    bool isStaff = false,
+    String? ownerName,
+    List<String>? requiredTags,
+    List<String>? negativeTags,
+    List<String>? optionalTags,
+    String? followersOf,
+    String? followedBy,
+    int page = 1,
+    int pageSize = 16,
+    String? cursor,
+  }) async {
+    final query = {
+      "ordering": (descending ? "-" : "") + ordering.key,
+      "is_artist": isArtist,
+      "taking_comms": takingComms,
+      "is_supporter": isSupporter,
+      "sfw_only": sfwOnly,
+      "has_ad_profile": hasAdProfile,
+      "is_staff": isStaff,
+      if (ownerName != null) "owner_name": ownerName,
+      if (requiredTags != null) "required_tags": requiredTags,
+      if (negativeTags != null) "negative_tags": negativeTags,
+      if (optionalTags != null) "optional_tags": optionalTags,
+      if (followersOf != null) "followers_of": followersOf,
+      if (followedBy != null) "followed_by": followedBy,
+      "page": page,
+      "page_size": pageSize,
+      if (cursor != null) "cursor": cursor,
+    };
+
+    final res = await request("/user_profiles/", query);
+    return ItakuPaginator<ItakuUser>.fromJson(res, ItakuUser.fromJson, this);
+  }
+
+  Future<ItakuUserProfile> getUserProfile(String username) async {
+    final res = await request("/user_profiles/$username/");
+    if (res["country"] == "") {
+      // why does the site use an empty string lol
+      res["country"] = null;
+    }
+    return ItakuUserProfile.fromJson(res);
+  }
+
+  Future<ItakuNSFWProfile?> getNSFWProfile(String username) async {
+    try {
+      final res = await request("/nsfw_profiles/$username/");
+      return ItakuNSFWProfile.fromJson(res);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 404) {
+        return null;
+      }
+      rethrow;
+    }
   }
 }
