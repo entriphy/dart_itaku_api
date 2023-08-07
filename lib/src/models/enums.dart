@@ -8,7 +8,10 @@ enum ItakuMaturityRating {
   questionable("Questionable"),
 
   @JsonValue("NSFW")
-  nsfw("NSFW");
+  nsfw("NSFW"),
+
+  @JsonValue("ANY")
+  any("ANY"); // Only used for commissions?
 
   final String key;
   const ItakuMaturityRating(this.key);
@@ -61,7 +64,8 @@ enum ItakuVisibility {
 
 enum ItakuOrdering {
   hotnessScore("hotness_score", "Trending"),
-  dateAdded("date_added", "New");
+  dateAdded("date_added", "New"),
+  numLikes("num_likes", "Likes");
 
   final String key;
   final String name;
@@ -83,6 +87,51 @@ enum ItakuDateRange {
   final String key;
   final String name;
   const ItakuDateRange(this.key, this.name);
+
+  @override
+  String toString() => name;
+}
+
+enum ItakuCommissionType {
+  @JsonValue("REQUEST")
+  request("REQUEST", "Request"),
+
+  @JsonValue("OFFER")
+  offer("OFFER", "Offer"),
+
+  @JsonValue("ADOPT")
+  adopt("ADOPT", "Adopt"),
+
+  @JsonValue("YCH")
+  ych("YCH", "YCH");
+
+  final String key;
+  final String name;
+  const ItakuCommissionType(this.key, this.name);
+
+  @override
+  String toString() => name;
+}
+
+enum ItakuTagType {
+  @JsonValue("GENERAL")
+  general("GENERAL", "General"),
+
+  @JsonValue("CHARACTER")
+  character("CHARACTER", "Character"),
+
+  @JsonValue("SPECIES")
+  species("SPECIES", "Species"),
+
+  @JsonValue("COPYRIGHT")
+  copyright("COPYRIGHT", "Copyright"),
+
+  @JsonValue("META")
+  meta("META", "Meta");
+
+  final String key;
+  final String name;
+  const ItakuTagType(this.key, this.name);
 
   @override
   String toString() => name;

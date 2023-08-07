@@ -4,12 +4,8 @@ import 'enums.dart';
 
 part 'feed.g.dart';
 
-abstract class Serializable {
-  Map<String, dynamic> toJson();
-}
-
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuFeed extends Serializable {
+class ItakuFeedItem {
   final bool? alreadyPinned; // TODO: What is this?
   final dynamic contentObject; // TODO: Do this
   @JsonKey(unknownEnumValue: ItakuContentType.other)
@@ -28,7 +24,7 @@ class ItakuFeed extends Serializable {
   final ItakuVerb verb;
   final ItakuVisibility visibility;
 
-  ItakuFeed({
+  ItakuFeedItem({
     this.alreadyPinned,
     required this.contentObject,
     required this.contentType,
@@ -47,10 +43,8 @@ class ItakuFeed extends Serializable {
     required this.visibility,
   });
 
-  factory ItakuFeed.fromJson(Map<String, dynamic> json) =>
-      _$ItakuFeedFromJson(json);
+  factory ItakuFeedItem.fromJson(Map<String, dynamic> json) =>
+      _$ItakuFeedItemFromJson(json);
 
-  static fromJSON(Map<String, dynamic> json) => ItakuFeed.fromJSON(json);
-
-  Map<String, dynamic> toJson() => _$ItakuFeedToJson(this);
+  Map<String, dynamic> toJson() => _$ItakuFeedItemToJson(this);
 }
