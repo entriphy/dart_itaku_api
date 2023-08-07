@@ -10,7 +10,7 @@ ItakuPost _$ItakuPostFromJson(Map<String, dynamic> json) => ItakuPost(
       alreadyPinned: json['already_pinned'] as bool?,
       canReshare: json['can_reshare'] as bool,
       content: json['content'] as String,
-      contentWarning: json['content_warning'] as String,
+      contentWarning: json['content_warning'] as String?,
       createdByImages: json['created_by_images'] as bool,
       dateAdded: DateTime.parse(json['date_added'] as String),
       dateEdited: json['date_edited'] == null

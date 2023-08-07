@@ -117,6 +117,9 @@ enum ItakuTagType {
   @JsonValue("GENERAL")
   general("GENERAL", "General"),
 
+  @JsonValue("ARTIST")
+  artist("ARTIST", "Artist"),
+
   @JsonValue("CHARACTER")
   character("CHARACTER", "Character"),
 

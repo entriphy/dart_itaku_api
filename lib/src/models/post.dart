@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'content_object.dart';
 import 'enums.dart';
 import 'image.dart';
 import 'tag.dart';
@@ -7,11 +8,11 @@ import 'tag.dart';
 part 'post.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuPost {
+class ItakuPost extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool canReshare;
   final String content;
-  final String contentWarning;
+  final String? contentWarning;
   final bool createdByImages;
   final DateTime dateAdded;
   final DateTime? dateEdited;
@@ -69,6 +70,7 @@ class ItakuPost {
   factory ItakuPost.fromJson(Map<String, dynamic> json) =>
       _$ItakuPostFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ItakuPostToJson(this);
 }
 

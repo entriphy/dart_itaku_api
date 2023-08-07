@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 import 'enums.dart';
+import 'content_object.dart';
 
 part 'image.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuImage {
+class ItakuImage extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool animated;
   final ItakuImageBlacklist blacklisted;

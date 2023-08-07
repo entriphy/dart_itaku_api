@@ -36,6 +36,7 @@ const _$ItakuMaturityRatingEnumMap = {
 
 const _$ItakuTagTypeEnumMap = {
   ItakuTagType.general: 'GENERAL',
+  ItakuTagType.artist: 'ARTIST',
   ItakuTagType.character: 'CHARACTER',
   ItakuTagType.species: 'SPECIES',
   ItakuTagType.copyright: 'COPYRIGHT',

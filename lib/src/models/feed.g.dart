@@ -9,7 +9,8 @@ part of 'feed.dart';
 ItakuFeedItem _$ItakuFeedItemFromJson(Map<String, dynamic> json) =>
     ItakuFeedItem(
       alreadyPinned: json['already_pinned'] as bool?,
-      contentObject: json['content_object'],
+      contentObject: const ItakuContentObjectConverter()
+          .fromJson(json['content_object'] as Map<String, dynamic>),
       contentType: $enumDecode(_$ItakuContentTypeEnumMap, json['content_type'],
           unknownValue: ItakuContentType.other),
       dateAdded: DateTime.parse(json['date_added'] as String),
@@ -33,7 +34,8 @@ ItakuFeedItem _$ItakuFeedItemFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ItakuFeedItemToJson(ItakuFeedItem instance) =>
     <String, dynamic>{
       'already_pinned': instance.alreadyPinned,
-      'content_object': instance.contentObject,
+      'content_object':
+          const ItakuContentObjectConverter().toJson(instance.contentObject),
       'content_type': _$ItakuContentTypeEnumMap[instance.contentType]!,
       'date_added': instance.dateAdded.toIso8601String(),
       'date_edited': instance.dateEdited?.toIso8601String(),

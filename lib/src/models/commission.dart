@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'enums.dart';
+import 'content_object.dart';
 
 part 'commission.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuCommission {
+class ItakuCommission extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool canReshare;
   final ItakuCommissionType commType;

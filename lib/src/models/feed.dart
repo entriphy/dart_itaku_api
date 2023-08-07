@@ -1,13 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'enums.dart';
+import 'content_object.dart';
 
 part 'feed.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ItakuFeedItem {
   final bool? alreadyPinned; // TODO: What is this?
-  final dynamic contentObject; // TODO: Do this
+  @ItakuContentObjectConverter()
+  final ItakuContentObject contentObject;
   @JsonKey(unknownEnumValue: ItakuContentType.other)
   final ItakuContentType contentType;
   final DateTime dateAdded;
