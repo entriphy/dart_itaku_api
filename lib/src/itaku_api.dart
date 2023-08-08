@@ -108,6 +108,23 @@ class ItakuApi {
     return ItakuImageFull.fromJson(res);
   }
 
+  Future<ItakuPaginator<ItakuComment>> getImageComments(
+    int id, {
+    int page = 1,
+    int pageSize = 30,
+    int childPageSize = 100,
+  }) async {
+    final query = {
+      "page": page,
+      "page_size": pageSize,
+      "child_page_size": childPageSize
+    };
+
+    final res = await request("/galleries/images/$id/comments/", query);
+    return ItakuPaginator<ItakuComment>.fromJson(
+        res, ItakuComment.fromJson, this);
+  }
+
   Future<ItakuPaginator<ItakuPost>> getPosts({
     ItakuOrdering ordering = ItakuOrdering.dateAdded,
     bool descending = true,
@@ -154,6 +171,23 @@ class ItakuApi {
     return ItakuPost.fromJson(res);
   }
 
+  Future<ItakuPaginator<ItakuComment>> getPostComments(
+    int id, {
+    int page = 1,
+    int pageSize = 30,
+    int childPageSize = 100,
+  }) async {
+    final query = {
+      "page": page,
+      "page_size": pageSize,
+      "child_page_size": childPageSize
+    };
+
+    final res = await request("/posts/$id/comments/", query);
+    return ItakuPaginator<ItakuComment>.fromJson(
+        res, ItakuComment.fromJson, this);
+  }
+
   Future<ItakuPaginator<ItakuCommission>> getCommissions({
     ItakuOrdering ordering = ItakuOrdering.dateAdded,
     bool descending = true,
@@ -197,6 +231,28 @@ class ItakuApi {
     final res = await request("/commissions/", query);
     return ItakuPaginator<ItakuCommission>.fromJson(
         res, ItakuCommission.fromJson, this);
+  }
+
+  Future<ItakuCommissionFull> getCommission(int id) async {
+    final res = await request("/commissions/$id/");
+    return ItakuCommissionFull.fromJson(res);
+  }
+
+  Future<ItakuPaginator<ItakuComment>> getCommissionComments(
+    int id, {
+    int page = 1,
+    int pageSize = 30,
+    int childPageSize = 100,
+  }) async {
+    final query = {
+      "page": page,
+      "page_size": pageSize,
+      "child_page_size": childPageSize
+    };
+
+    final res = await request("/commissions/$id/comments/", query);
+    return ItakuPaginator<ItakuComment>.fromJson(
+        res, ItakuComment.fromJson, this);
   }
 
   Future<ItakuPaginator<ItakuUser>> getUsers({

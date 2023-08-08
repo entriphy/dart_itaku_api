@@ -166,9 +166,7 @@ const _$ItakuVisibilityEnumMap = {
 ItakuImageBlacklist _$ItakuImageBlacklistFromJson(Map<String, dynamic> json) =>
     ItakuImageBlacklist(
       isBlacklisted: json['is_blacklisted'] as bool,
-      blacklistedTags: (json['blacklisted_tags'] as List<dynamic>)
-          .map((e) => e as int)
-          .toList(),
+      blacklistedTags: json['blacklisted_tags'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$ItakuImageBlacklistToJson(

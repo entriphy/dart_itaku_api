@@ -29,7 +29,7 @@ class ItakuCommission extends ItakuContentObject {
   final int numLikes;
   final int numReshares;
   final int numSlots;
-  final int numSlotted;
+  final int? numSlotted;
   final int objTags;
   final int owner;
   final String ownerAvatar;
@@ -90,7 +90,7 @@ class ItakuCommission extends ItakuContentObject {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ItakuCommissionFull extends ItakuCommission {
   final List<int> finishedWorkGalleryImages;
-  final bool joinedByYou;
+  final bool? joinedByYou;
   final dynamic latestPendingJoinRequestId; // TODO: type?
   final String minBidIncrease;
   final int? numPendingJoinReqs;

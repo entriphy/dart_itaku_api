@@ -32,7 +32,7 @@ ItakuCommission _$ItakuCommissionFromJson(Map<String, dynamic> json) =>
       numLikes: json['num_likes'] as int,
       numReshares: json['num_reshares'] as int,
       numSlots: json['num_slots'] as int,
-      numSlotted: json['num_slotted'] as int,
+      numSlotted: json['num_slotted'] as int?,
       objTags: json['obj_tags'] as int,
       owner: json['owner'] as int,
       ownerAvatar: json['owner_avatar'] as String,
@@ -136,7 +136,7 @@ ItakuCommissionFull _$ItakuCommissionFullFromJson(Map<String, dynamic> json) =>
       numLikes: json['num_likes'] as int,
       numReshares: json['num_reshares'] as int,
       numSlots: json['num_slots'] as int,
-      numSlotted: json['num_slotted'] as int,
+      numSlotted: json['num_slotted'] as int?,
       objTags: json['obj_tags'] as int,
       owner: json['owner'] as int,
       ownerAvatar: json['owner_avatar'] as String,
@@ -159,7 +159,7 @@ ItakuCommissionFull _$ItakuCommissionFullFromJson(Map<String, dynamic> json) =>
           (json['finished_work_gallery_images'] as List<dynamic>)
               .map((e) => e as int)
               .toList(),
-      joinedByYou: json['joined_by_you'] as bool,
+      joinedByYou: json['joined_by_you'] as bool?,
       latestPendingJoinRequestId: json['latest_pending_join_request_id'],
       minBidIncrease: json['min_bid_increase'] as String,
       numPendingJoinReqs: json['num_pending_join_reqs'] as int?,

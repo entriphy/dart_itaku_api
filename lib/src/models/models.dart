@@ -1,3 +1,4 @@
+export 'comment.dart';
 export 'commission.dart';
 export 'enums.dart';
 export 'feed.dart';
