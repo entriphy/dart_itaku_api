@@ -36,16 +36,15 @@ class ItakuPaginator<T> {
 class _PaginatorLinks {
   final String? next;
   final String? previous;
+  final int? count; // Only for Paginator<ItakuTagFull>
 
-  _PaginatorLinks({
-    this.next,
-    this.previous,
-  });
+  _PaginatorLinks({this.next, this.previous, this.count});
 
   factory _PaginatorLinks.fromJson(Map<String, dynamic> json) {
     return _PaginatorLinks(
       next: json["next"],
       previous: json["previous"],
+      count: json["count"],
     );
   }
 }

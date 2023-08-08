@@ -261,4 +261,43 @@ class ItakuApi {
       rethrow;
     }
   }
+
+  Future<ItakuPaginator<ItakuTagFull>> getTags({
+    ItakuOrdering ordering = ItakuOrdering.numObjects,
+    bool descending = true,
+    Iterable<ItakuMaturityRating>? maturityRating = const [
+      ItakuMaturityRating.sfw
+    ],
+    bool noDescription = false,
+    bool isRoot = false,
+    bool isSynonym = false,
+    bool youEdited = false,
+    String? nameStartsWith,
+    String? nameContains,
+    int page = 1,
+    int pageSize = 15,
+  }) async {
+    final query = {
+      "ordering": (descending ? "-" : "") + ordering.key,
+      if (maturityRating != null)
+        "maturity_rating": maturityRating.map((m) => m.key).toList(),
+      "no_description": noDescription,
+      "is_root": isRoot,
+      "is_synonym": isSynonym,
+      "you_edited": youEdited,
+      "name_istartswith": nameStartsWith,
+      "name_icontains": nameContains,
+      "page": page,
+      "page_size": pageSize,
+    };
+
+    final res = await request("/tags/detailed/", query);
+    return ItakuPaginator<ItakuTagFull>.fromJson(
+        res, ItakuTagFull.fromJson, this);
+  }
+
+  Future<ItakuTagFull> getTag(int id) async {
+    final res = await request("/tags/$id/");
+    return ItakuTagFull.fromJson(res);
+  }
 }

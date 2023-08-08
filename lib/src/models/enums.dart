@@ -66,7 +66,9 @@ enum ItakuOrdering {
   hotnessScore("hotness_score", "Trending"),
   dateAdded("date_added", "New"),
   numLikes("num_likes", "Likes"),
-  numFollowers("num_followers", "Followers");
+  numFollowers("num_followers", "Followers"),
+  numObjects("num_objects", "Objects"),
+  tagType("tag_type", "Tag Type");
 
   final String key;
   final String name;
