@@ -230,3 +230,37 @@ Map<String, dynamic> _$ItakuCommissionTimeDataToJson(
       'time_remaining': instance.timeRemaining,
       'completed_percentage': instance.completedPercentage,
     };
+
+ItakuCommissionTier _$ItakuCommissionTierFromJson(Map<String, dynamic> json) =>
+    ItakuCommissionTier(
+      currency: json['currency'] as String,
+      dateAdded: DateTime.parse(json['date_added'] as String),
+      dateEdited: json['date_edited'] == null
+          ? null
+          : DateTime.parse(json['date_edited'] as String),
+      description: json['description'] as String,
+      galleryImage:
+          ItakuImage.fromJson(json['gallery_image'] as Map<String, dynamic>),
+      gallerySection: json['gallery_section'] as int,
+      id: json['id'] as int,
+      maxPrice: json['max_price'] as String,
+      minPrice: json['min_price'] as String,
+      owner: json['owner'] as int,
+      title: json['title'] as String,
+    );
+
+Map<String, dynamic> _$ItakuCommissionTierToJson(
+        ItakuCommissionTier instance) =>
+    <String, dynamic>{
+      'currency': instance.currency,
+      'date_added': instance.dateAdded.toIso8601String(),
+      'date_edited': instance.dateEdited?.toIso8601String(),
+      'description': instance.description,
+      'gallery_image': instance.galleryImage,
+      'gallery_section': instance.gallerySection,
+      'id': instance.id,
+      'max_price': instance.maxPrice,
+      'min_price': instance.minPrice,
+      'owner': instance.owner,
+      'title': instance.title,
+    };

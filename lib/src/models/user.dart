@@ -321,3 +321,23 @@ class ItakuUserProfileBadge {
 
   Map<String, dynamic> toJson() => _$ItakuUserProfileBadgeToJson(this);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuBookmarkFolder {
+  final int id;
+  final int numObjects;
+  final bool private;
+  final String title;
+
+  ItakuBookmarkFolder({
+    required this.id,
+    required this.numObjects,
+    required this.private,
+    required this.title,
+  });
+
+  factory ItakuBookmarkFolder.fromJson(Map<String, dynamic> json) =>
+      _$ItakuBookmarkFolderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuBookmarkFolderToJson(this);
+}

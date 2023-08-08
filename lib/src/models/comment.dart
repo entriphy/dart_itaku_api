@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'enums.dart';
-
 part 'comment.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)

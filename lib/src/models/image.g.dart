@@ -166,7 +166,10 @@ const _$ItakuVisibilityEnumMap = {
 ItakuImageBlacklist _$ItakuImageBlacklistFromJson(Map<String, dynamic> json) =>
     ItakuImageBlacklist(
       isBlacklisted: json['is_blacklisted'] as bool,
-      blacklistedTags: json['blacklisted_tags'] as List<dynamic>,
+      blacklistedTags: (json['blacklisted_tags'] as List<dynamic>)
+          .map((e) => ItakuTag.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$ItakuImageBlacklistToJson(
@@ -174,6 +177,7 @@ Map<String, dynamic> _$ItakuImageBlacklistToJson(
     <String, dynamic>{
       'is_blacklisted': instance.isBlacklisted,
       'blacklisted_tags': instance.blacklistedTags,
+      'tags': instance.tags,
     };
 
 ItakuImageVideo _$ItakuImageVideoFromJson(Map<String, dynamic> json) =>

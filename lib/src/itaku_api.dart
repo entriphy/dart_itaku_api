@@ -22,6 +22,12 @@ class ItakuApi {
     return res.data!;
   }
 
+  Future<List<T>> requestList<T>(String url,
+      [Map<String, dynamic>? query]) async {
+    final res = await _dio.get(url, queryParameters: query);
+    return List<T>.from(res.data!);
+  }
+
   Future<ItakuPaginator<ItakuFeedItem>> getFeed({
     ItakuOrdering ordering = ItakuOrdering.hotnessScore,
     bool descending = true,
@@ -72,6 +78,7 @@ class ItakuApi {
     List<String>? requiredTags,
     List<String>? negativeTags,
     List<String>? optionalTags,
+    int? bookmarkFolder,
     bool useBlacklist = true,
     int page = 1,
     int pageSize = 30,
@@ -91,6 +98,7 @@ class ItakuApi {
       if (requiredTags != null) "required_tags": requiredTags,
       if (negativeTags != null) "negative_tags": negativeTags,
       if (optionalTags != null) "optional_tags": optionalTags,
+      if (bookmarkFolder != null) "bookmark_folder": bookmarkFolder,
       "use_blacklist": useBlacklist,
       "page": page,
       "page_size": pageSize,
@@ -207,6 +215,9 @@ class ItakuApi {
     bool isAuction = false,
     bool likedByYou = false,
     bool useBlacklist = true,
+    List<String>? requiredTags,
+    List<String>? negativeTags,
+    List<String>? optionalTags,
     int page = 1,
     int pageSize = 9,
     String? cursor,
@@ -223,6 +234,9 @@ class ItakuApi {
       "is_auction": isAuction,
       "liked_by_you": likedByYou,
       "use_blacklist": useBlacklist,
+      if (requiredTags != null) "required_tags": requiredTags,
+      if (negativeTags != null) "negative_tags": negativeTags,
+      if (optionalTags != null) "optional_tags": optionalTags,
       "page": page,
       "page_size": pageSize,
       if (cursor != null) "cursor": cursor,
@@ -255,7 +269,13 @@ class ItakuApi {
         res, ItakuComment.fromJson, this);
   }
 
-  Future<ItakuPaginator<ItakuUser>> getUsers({
+  Future<List<ItakuImage>> getCommissionFinishedImages(int id) async {
+    final res = await requestList<Map<String, dynamic>>(
+        "/commissions/$id/get_finished_work_gallery_images/");
+    return res.map((img) => ItakuImage.fromJson(img)).toList();
+  }
+
+  Future<ItakuPaginator<ItakuUser>> getUserProfiles({
     ItakuOrdering ordering = ItakuOrdering.dateAdded,
     bool descending = true,
     bool isArtist = false,
@@ -270,6 +290,7 @@ class ItakuApi {
     List<String>? optionalTags,
     String? followersOf,
     String? followedBy,
+    int? bookmarkFolder,
     int page = 1,
     int pageSize = 16,
     String? cursor,
@@ -288,6 +309,7 @@ class ItakuApi {
       if (optionalTags != null) "optional_tags": optionalTags,
       if (followersOf != null) "followers_of": followersOf,
       if (followedBy != null) "followed_by": followedBy,
+      if (bookmarkFolder != null) "bookmark_folder": bookmarkFolder,
       "page": page,
       "page_size": pageSize,
       if (cursor != null) "cursor": cursor,
@@ -312,6 +334,30 @@ class ItakuApi {
       }
       rethrow;
     }
+  }
+
+  Future<List<ItakuCommissionTier>> getUserCommissionTiers(
+      String username) async {
+    final res = await requestList<Map<String, dynamic>>(
+        "/user_profiles/$username/commission_info/");
+    return res.map((img) => ItakuCommissionTier.fromJson(img)).toList();
+  }
+
+  Future<List<ItakuBookmarkFolder>> getUserImageBookmarkFolders(
+      int owner) async {
+    final query = {"owner": owner};
+    final res = await requestList<Map<String, dynamic>>(
+        "/gallery_bookmark_folders/", query);
+    return res.map((img) => ItakuBookmarkFolder.fromJson(img)).toList();
+  }
+
+  Future<List<ItakuBookmarkFolder>> getUserUserBookmarkFolders(
+      int owner) async {
+    // perhaps this function should be slightly renamed :p
+    final query = {"owner": owner};
+    final res = await requestList<Map<String, dynamic>>(
+        "/user_bookmark_folders/", query);
+    return res.map((img) => ItakuBookmarkFolder.fromJson(img)).toList();
   }
 
   Future<ItakuPaginator<ItakuTagFull>> getTags({

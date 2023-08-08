@@ -124,11 +124,13 @@ class ItakuImageFull extends ItakuImage {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ItakuImageBlacklist {
   final bool isBlacklisted;
-  final List blacklistedTags; // TODO: type?
+  final List<ItakuTag> blacklistedTags;
+  final List<String>? tags;
 
   ItakuImageBlacklist({
     required this.isBlacklisted,
     required this.blacklistedTags,
+    this.tags,
   });
 
   factory ItakuImageBlacklist.fromJson(Map<String, dynamic> json) =>

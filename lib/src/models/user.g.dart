@@ -282,3 +282,20 @@ Map<String, dynamic> _$ItakuUserProfileBadgeToJson(
       'order_ranking': instance.orderRanking,
       'category': instance.category,
     };
+
+ItakuBookmarkFolder _$ItakuBookmarkFolderFromJson(Map<String, dynamic> json) =>
+    ItakuBookmarkFolder(
+      id: json['id'] as int,
+      numObjects: json['num_objects'] as int,
+      private: json['private'] as bool,
+      title: json['title'] as String,
+    );
+
+Map<String, dynamic> _$ItakuBookmarkFolderToJson(
+        ItakuBookmarkFolder instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'num_objects': instance.numObjects,
+      'private': instance.private,
+      'title': instance.title,
+    };

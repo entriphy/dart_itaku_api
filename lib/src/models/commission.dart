@@ -164,3 +164,37 @@ class ItakuCommissionTimeData {
 
   Map<String, dynamic> toJson() => _$ItakuCommissionTimeDataToJson(this);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuCommissionTier {
+  final String currency;
+  final DateTime dateAdded;
+  final DateTime? dateEdited;
+  final String description;
+  final ItakuImage galleryImage;
+  final int gallerySection;
+  final int id;
+  final String maxPrice;
+  final String minPrice;
+  final int owner;
+  final String title;
+
+  ItakuCommissionTier({
+    required this.currency,
+    required this.dateAdded,
+    this.dateEdited,
+    required this.description,
+    required this.galleryImage,
+    required this.gallerySection,
+    required this.id,
+    required this.maxPrice,
+    required this.minPrice,
+    required this.owner,
+    required this.title,
+  });
+
+  factory ItakuCommissionTier.fromJson(Map<String, dynamic> json) =>
+      _$ItakuCommissionTierFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuCommissionTierToJson(this);
+}
