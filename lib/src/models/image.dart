@@ -19,6 +19,7 @@ class ItakuImage extends ItakuContentObject {
   final String? imageLg;
   final String? imageSm;
   final String? imageXl;
+  final String? imageXs;
   final bool? isThumbnailForVideo;
   final bool likedByYou;
   final ItakuMaturityRating maturityRating;
@@ -40,6 +41,7 @@ class ItakuImage extends ItakuContentObject {
     required this.imageLg,
     required this.imageSm,
     required this.imageXl,
+    required this.imageXs,
     required this.isThumbnailForVideo,
     required this.likedByYou,
     required this.maturityRating,
@@ -87,6 +89,7 @@ class ItakuImageFull extends ItakuImage {
     required super.imageLg,
     required super.imageSm,
     required super.imageXl,
+    required super.imageXs,
     required super.isThumbnailForVideo,
     required super.likedByYou,
     required super.maturityRating,

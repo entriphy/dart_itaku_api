@@ -1,8 +1,10 @@
 export 'comment.dart';
 export 'commission.dart';
+export 'content_object.dart';
 export 'enums.dart';
 export 'feed.dart';
 export 'image.dart';
 export 'post.dart';
+export 'section.dart';
 export 'tag.dart';
 export 'user.dart';

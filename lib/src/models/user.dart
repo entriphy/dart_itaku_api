@@ -1,5 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'commission.dart';
+import 'feed.dart';
+import 'image.dart';
 import 'tag.dart';
 
 part 'user.g.dart';
@@ -340,4 +343,24 @@ class ItakuBookmarkFolder {
       _$ItakuBookmarkFolderFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItakuBookmarkFolderToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuUserLatestContent {
+  final List<ItakuCommission> latestActiveCommissions;
+  final List<ItakuImage> latestGalleryImages;
+  final ItakuFeedItem? pinnedItem;
+  final List<ItakuImage>? recentlyLikedImages;
+
+  ItakuUserLatestContent({
+    required this.latestActiveCommissions,
+    required this.latestGalleryImages,
+    this.pinnedItem,
+    this.recentlyLikedImages,
+  });
+
+  factory ItakuUserLatestContent.fromJson(Map<String, dynamic> json) =>
+      _$ItakuUserLatestContentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuUserLatestContentToJson(this);
 }

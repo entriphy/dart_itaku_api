@@ -299,3 +299,30 @@ Map<String, dynamic> _$ItakuBookmarkFolderToJson(
       'private': instance.private,
       'title': instance.title,
     };
+
+ItakuUserLatestContent _$ItakuUserLatestContentFromJson(
+        Map<String, dynamic> json) =>
+    ItakuUserLatestContent(
+      latestActiveCommissions:
+          (json['latest_active_commissions'] as List<dynamic>)
+              .map((e) => ItakuCommission.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      latestGalleryImages: (json['latest_gallery_images'] as List<dynamic>)
+          .map((e) => ItakuImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      pinnedItem: json['pinned_item'] == null
+          ? null
+          : ItakuFeedItem.fromJson(json['pinned_item'] as Map<String, dynamic>),
+      recentlyLikedImages: (json['recently_liked_images'] as List<dynamic>?)
+          ?.map((e) => ItakuImage.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$ItakuUserLatestContentToJson(
+        ItakuUserLatestContent instance) =>
+    <String, dynamic>{
+      'latest_active_commissions': instance.latestActiveCommissions,
+      'latest_gallery_images': instance.latestGalleryImages,
+      'pinned_item': instance.pinnedItem,
+      'recently_liked_images': instance.recentlyLikedImages,
+    };

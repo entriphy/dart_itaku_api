@@ -17,6 +17,7 @@ ItakuImage _$ItakuImageFromJson(Map<String, dynamic> json) => ItakuImage(
       imageLg: json['image_lg'] as String?,
       imageSm: json['image_sm'] as String?,
       imageXl: json['image_xl'] as String?,
+      imageXs: json['image_xs'] as String?,
       isThumbnailForVideo: json['is_thumbnail_for_video'] as bool?,
       likedByYou: json['liked_by_you'] as bool,
       maturityRating:
@@ -41,6 +42,7 @@ Map<String, dynamic> _$ItakuImageToJson(ItakuImage instance) =>
       'image_lg': instance.imageLg,
       'image_sm': instance.imageSm,
       'image_xl': instance.imageXl,
+      'image_xs': instance.imageXs,
       'is_thumbnail_for_video': instance.isThumbnailForVideo,
       'liked_by_you': instance.likedByYou,
       'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
@@ -72,6 +74,7 @@ ItakuImageFull _$ItakuImageFullFromJson(Map<String, dynamic> json) =>
       imageLg: json['image_lg'] as String?,
       imageSm: json['image_sm'] as String?,
       imageXl: json['image_xl'] as String?,
+      imageXs: json['image_xs'] as String?,
       isThumbnailForVideo: json['is_thumbnail_for_video'] as bool?,
       likedByYou: json['liked_by_you'] as bool,
       maturityRating:
@@ -122,6 +125,7 @@ Map<String, dynamic> _$ItakuImageFullToJson(ItakuImageFull instance) =>
       'image_lg': instance.imageLg,
       'image_sm': instance.imageSm,
       'image_xl': instance.imageXl,
+      'image_xs': instance.imageXs,
       'is_thumbnail_for_video': instance.isThumbnailForVideo,
       'liked_by_you': instance.likedByYou,
       'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,

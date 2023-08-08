@@ -360,6 +360,11 @@ class ItakuApi {
     return res.map((img) => ItakuBookmarkFolder.fromJson(img)).toList();
   }
 
+  Future<ItakuUserLatestContent> getUserLatestContent(String username) async {
+    final res = await request("/user_profiles/$username/latest_content/");
+    return ItakuUserLatestContent.fromJson(res);
+  }
+
   Future<ItakuPaginator<ItakuTagFull>> getTags({
     ItakuOrdering ordering = ItakuOrdering.numObjects,
     bool descending = true,
