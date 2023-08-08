@@ -16,7 +16,7 @@ ItakuImage _$ItakuImageFromJson(Map<String, dynamic> json) => ItakuImage(
       id: json['id'] as int,
       imageLg: json['image_lg'] as String?,
       imageSm: json['image_sm'] as String?,
-      imageXl: json['image_xl'] as String,
+      imageXl: json['image_xl'] as String?,
       isThumbnailForVideo: json['is_thumbnail_for_video'] as bool?,
       likedByYou: json['liked_by_you'] as bool,
       maturityRating:
@@ -71,7 +71,7 @@ ItakuImageFull _$ItakuImageFullFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       imageLg: json['image_lg'] as String?,
       imageSm: json['image_sm'] as String?,
-      imageXl: json['image_xl'] as String,
+      imageXl: json['image_xl'] as String?,
       isThumbnailForVideo: json['is_thumbnail_for_video'] as bool?,
       likedByYou: json['liked_by_you'] as bool,
       maturityRating:
@@ -100,7 +100,9 @@ ItakuImageFull _$ItakuImageFullFromJson(Map<String, dynamic> json) =>
       ownerAvatar: json['owner_avatar'] as String,
       ownerUsername: json['owner_username'] as String,
       resharedByYou: json['reshared_by_you'] as bool,
-      sections: json['sections'],
+      sections: (json['sections'] as List<dynamic>)
+          .map((e) => ItakuSection.fromJson(e as Map<String, dynamic>))
+          .toList(),
       sourceImageChanged: json['source_image_changed'] as bool,
       tags: (json['tags'] as List<dynamic>)
           .map((e) => ItakuTag.fromJson(e as Map<String, dynamic>))

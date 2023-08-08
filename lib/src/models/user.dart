@@ -180,8 +180,13 @@ class ItakuUserProfile extends ItakuUser implements ItakuProfile {
     required this.dateEdited,
   });
 
-  factory ItakuUserProfile.fromJson(Map<String, dynamic> json) =>
-      _$ItakuUserProfileFromJson(json);
+  factory ItakuUserProfile.fromJson(Map<String, dynamic> json) {
+    if (json["country"] == "") {
+      // why does the site use an empty string lol
+      json["country"] = null;
+    }
+    return _$ItakuUserProfileFromJson(json);
+  }
 
   @override
   Map<String, dynamic> toJson() => _$ItakuUserProfileToJson(this);

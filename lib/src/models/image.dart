@@ -4,6 +4,7 @@ import 'package:itaku_api/src/models/tag.dart';
 
 import 'content_object.dart';
 import 'enums.dart';
+import 'section.dart';
 
 part 'image.g.dart';
 
@@ -17,7 +18,7 @@ class ItakuImage extends ItakuContentObject {
   final int id;
   final String? imageLg;
   final String? imageSm;
-  final String imageXl;
+  final String? imageXl;
   final bool? isThumbnailForVideo;
   final bool likedByYou;
   final ItakuMaturityRating maturityRating;
@@ -69,7 +70,7 @@ class ItakuImageFull extends ItakuImage {
   final String ownerAvatar;
   final String ownerUsername;
   final bool resharedByYou;
-  final dynamic sections; // TODO
+  final List<ItakuSection> sections;
   final bool sourceImageChanged;
   final List<ItakuTag> tags;
   final String uncompressedFilesize;
@@ -123,7 +124,7 @@ class ItakuImageFull extends ItakuImage {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ItakuImageBlacklist {
   final bool isBlacklisted;
-  final List<int> blacklistedTags; // TODO
+  final List blacklistedTags; // TODO: type?
 
   ItakuImageBlacklist({
     required this.isBlacklisted,

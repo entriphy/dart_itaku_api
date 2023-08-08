@@ -116,6 +116,24 @@ enum ItakuCommissionType {
   String toString() => name;
 }
 
+enum ItakuCommissionStatus {
+  @JsonValue("ACTIVE")
+  request("ACTIVE", "Active"),
+
+  @JsonValue("DOING")
+  offer("DOING", "Doing"),
+
+  @JsonValue("INACTIVE")
+  inactive("INACTIVE", "Inactive");
+
+  final String key;
+  final String name;
+  const ItakuCommissionStatus(this.key, this.name);
+
+  @override
+  String toString() => name;
+}
+
 enum ItakuTagType {
   @JsonValue("GENERAL")
   general("GENERAL", "General"),

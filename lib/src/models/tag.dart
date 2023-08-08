@@ -43,7 +43,7 @@ class ItakuTagFull extends ItakuTag {
   final String? ownerDisplayname;
   final String? ownerUsername;
   final List<ItakuTag> parents;
-  final List<ItakuTag> synonymous; // TODO: What is this?
+  final List<ItakuTag> synonymous;
   final List<ItakuTag> synonyms;
 
   ItakuTagFull({

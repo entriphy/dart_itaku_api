@@ -7,7 +7,7 @@ part 'feed.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ItakuFeedItem {
-  final bool? alreadyPinned; // TODO: What is this?
+  final bool? alreadyPinned;
   @ItakuContentObjectConverter()
   final ItakuContentObject contentObject;
   @JsonKey(unknownEnumValue: ItakuContentType.other)

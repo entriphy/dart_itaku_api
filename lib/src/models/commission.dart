@@ -1,7 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'enums.dart';
 import 'content_object.dart';
+import 'enums.dart';
+import 'image.dart';
+import 'section.dart';
+import 'tag.dart';
 
 part 'commission.g.dart';
 
@@ -34,10 +37,10 @@ class ItakuCommission extends ItakuContentObject {
   final String ownerUsername;
   final List<int> referenceGalleryImages;
   final bool resharedByYou;
-  final String status;
+  final ItakuCommissionStatus status;
   final int thumbnail;
-  final dynamic thumbnailDetail; // TODO
-  final dynamic timeData; // TODO
+  final ItakuImage thumbnailDetail;
+  final ItakuCommissionTimeData timeData;
   final String title;
   final bool tooMature;
 
@@ -80,5 +83,84 @@ class ItakuCommission extends ItakuContentObject {
   factory ItakuCommission.fromJson(Map<String, dynamic> json) =>
       _$ItakuCommissionFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ItakuCommissionToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuCommissionFull extends ItakuCommission {
+  final List<int> finishedWorkGalleryImages;
+  final bool joinedByYou;
+  final dynamic latestPendingJoinRequestId; // TODO: type?
+  final String minBidIncrease;
+  final int? numPendingJoinReqs;
+  final List<ItakuSection> referenceGallerySections;
+  final List<ItakuTag> tags;
+
+  ItakuCommissionFull({
+    // Super
+    super.alreadyPinned,
+    required super.canReshare,
+    required super.commType,
+    required super.currency,
+    required super.dateAdded,
+    super.dateComplete,
+    super.dateEdited,
+    required super.description,
+    required super.highestBid,
+    required super.id,
+    required super.isAuction,
+    required super.likedByYou,
+    required super.maturityRating,
+    required super.maxPrice,
+    required super.minPrice,
+    required super.numComments,
+    required super.numLikes,
+    required super.numReshares,
+    required super.numSlots,
+    required super.numSlotted,
+    required super.objTags,
+    required super.owner,
+    required super.ownerAvatar,
+    required super.ownerDisplayname,
+    required super.ownerUsername,
+    required super.referenceGalleryImages,
+    required super.resharedByYou,
+    required super.status,
+    required super.thumbnail,
+    required super.thumbnailDetail,
+    required super.timeData,
+    required super.title,
+    required super.tooMature,
+    // This
+    required this.finishedWorkGalleryImages,
+    required this.joinedByYou,
+    required this.latestPendingJoinRequestId,
+    required this.minBidIncrease,
+    this.numPendingJoinReqs,
+    required this.referenceGallerySections,
+    required this.tags,
+  });
+
+  factory ItakuCommissionFull.fromJson(Map<String, dynamic> json) =>
+      _$ItakuCommissionFullFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ItakuCommissionFullToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuCommissionTimeData {
+  final int timeRemaining;
+  final double completedPercentage;
+
+  ItakuCommissionTimeData({
+    required this.timeRemaining,
+    required this.completedPercentage,
+  });
+
+  factory ItakuCommissionTimeData.fromJson(Map<String, dynamic> json) =>
+      _$ItakuCommissionTimeDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuCommissionTimeDataToJson(this);
 }

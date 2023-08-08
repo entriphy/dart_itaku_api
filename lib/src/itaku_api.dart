@@ -243,10 +243,6 @@ class ItakuApi {
 
   Future<ItakuUserProfile> getUserProfile(String username) async {
     final res = await request("/user_profiles/$username/");
-    if (res["country"] == "") {
-      // why does the site use an empty string lol
-      res["country"] = null;
-    }
     return ItakuUserProfile.fromJson(res);
   }
 
