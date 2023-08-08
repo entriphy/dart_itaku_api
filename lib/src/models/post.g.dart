@@ -29,7 +29,7 @@ ItakuPost _$ItakuPostFromJson(Map<String, dynamic> json) => ItakuPost(
       numComments: json['num_comments'] as int,
       numLikes: json['num_likes'] as int,
       numReshares: json['num_reshares'] as int,
-      numTooMatureImgs: json['num_too_mature_imgs'] as int,
+      numTooMatureImgs: json['num_too_mature_imgs'] as int?,
       objTags: json['obj_tags'] as int,
       owner: json['owner'] as int,
       ownerAvatar: json['owner_avatar'] as String,

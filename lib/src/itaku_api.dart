@@ -103,6 +103,11 @@ class ItakuApi {
     return ItakuPaginator<ItakuImage>.fromJson(res, ItakuImage.fromJson, this);
   }
 
+  Future<ItakuImageFull> getImage(int id) async {
+    final res = await request("/galleries/images/$id/");
+    return ItakuImageFull.fromJson(res);
+  }
+
   Future<ItakuPaginator<ItakuPost>> getPosts({
     ItakuOrdering ordering = ItakuOrdering.dateAdded,
     bool descending = true,
@@ -142,6 +147,11 @@ class ItakuApi {
 
     final res = await request("/posts/", query);
     return ItakuPaginator<ItakuPost>.fromJson(res, ItakuPost.fromJson, this);
+  }
+
+  Future<ItakuPost> getPost(int id) async {
+    final res = await request("/posts/$id/");
+    return ItakuPost.fromJson(res);
   }
 
   Future<ItakuPaginator<ItakuCommission>> getCommissions({

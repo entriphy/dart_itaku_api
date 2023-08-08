@@ -1,7 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'enums.dart';
+import 'package:itaku_api/src/models/tag.dart';
+
 import 'content_object.dart';
+import 'enums.dart';
 
 part 'image.g.dart';
 
@@ -13,10 +15,10 @@ class ItakuImage extends ItakuContentObject {
   final bool bookmarkedByYou;
   final String? contentWarning;
   final int id;
-  final String imageLg;
+  final String? imageLg;
   final String? imageSm;
   final String imageXl;
-  final bool isThumbnailForVideo;
+  final bool? isThumbnailForVideo;
   final bool likedByYou;
   final ItakuMaturityRating maturityRating;
   final int numComments;
@@ -52,7 +54,70 @@ class ItakuImage extends ItakuContentObject {
   factory ItakuImage.fromJson(Map<String, dynamic> json) =>
       _$ItakuImageFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ItakuImageToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuImageFull extends ItakuImage {
+  final Map<ItakuTagType, List<ItakuTag>> categorizedTags;
+  final DateTime dateAdded;
+  final DateTime? dateEdited;
+  final String description;
+  final double hotnessScore;
+  final int objTags;
+  final String ownerAvatar;
+  final String ownerUsername;
+  final bool resharedByYou;
+  final dynamic sections; // TODO
+  final bool sourceImageChanged;
+  final List<ItakuTag> tags;
+  final String uncompressedFilesize;
+  final ItakuVisibility visibility;
+
+  ItakuImageFull({
+    // Super
+    super.alreadyPinned,
+    required super.animated,
+    required super.blacklisted,
+    required super.bookmarkedByYou,
+    required super.contentWarning,
+    required super.id,
+    required super.imageLg,
+    required super.imageSm,
+    required super.imageXl,
+    required super.isThumbnailForVideo,
+    required super.likedByYou,
+    required super.maturityRating,
+    required super.numComments,
+    required super.numLikes,
+    required super.numReshares,
+    required super.owner,
+    super.showContentWarning,
+    required super.title,
+    required super.tooMature,
+    // This
+    required this.categorizedTags,
+    required this.dateAdded,
+    this.dateEdited,
+    required this.description,
+    required this.hotnessScore,
+    required this.objTags,
+    required this.ownerAvatar,
+    required this.ownerUsername,
+    required this.resharedByYou,
+    required this.sections,
+    required this.sourceImageChanged,
+    required this.tags,
+    required this.uncompressedFilesize,
+    required this.visibility,
+  });
+
+  factory ItakuImageFull.fromJson(Map<String, dynamic> json) =>
+      _$ItakuImageFullFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ItakuImageFullToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -69,4 +134,28 @@ class ItakuImageBlacklist {
       _$ItakuImageBlacklistFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItakuImageBlacklistToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuImageVideo {
+  final DateTime dateAdded;
+  final String filesize;
+  final int id;
+  final int owner;
+  final int thumbnail;
+  final String video;
+
+  ItakuImageVideo({
+    required this.dateAdded,
+    required this.filesize,
+    required this.id,
+    required this.owner,
+    required this.thumbnail,
+    required this.video,
+  });
+
+  factory ItakuImageVideo.fromJson(Map<String, dynamic> json) =>
+      _$ItakuImageVideoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuImageVideoToJson(this);
 }

@@ -24,7 +24,7 @@ class ItakuPost extends ItakuContentObject {
   final int numComments;
   final int numLikes;
   final int numReshares;
-  final int numTooMatureImgs;
+  final int? numTooMatureImgs;
   final int objTags;
   final int owner;
   final String ownerAvatar;
