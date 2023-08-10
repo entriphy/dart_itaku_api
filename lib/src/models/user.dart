@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 import 'commission.dart';
@@ -8,22 +9,15 @@ import 'tag.dart';
 part 'user.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuUser {
+class ItakuUserCompact {
   final int id;
   final String ownerUsername;
-  final bool isStaff;
   final bool isModerator;
   final bool bookmarkedByYou;
   final bool youFollow;
   final bool followsYou;
   final String? ownerAvatar;
-  final int numFollowers;
-  final String coverSm;
-  final String avatarMd;
   final String displayname;
-  final bool takingComms;
-  final bool isArtist;
-  final bool isSupporter;
   final bool showStarred;
   final String lead;
   final String avatarSm;
@@ -31,24 +25,16 @@ class ItakuUser {
   final bool matureProfile;
   final int owner;
   final int objTags;
-  final int? pinnedItem;
 
-  ItakuUser({
+  ItakuUserCompact({
     required this.id,
     required this.ownerUsername,
-    required this.isStaff,
     required this.isModerator,
     required this.bookmarkedByYou,
     required this.youFollow,
     required this.followsYou,
-    required this.ownerAvatar,
-    required this.numFollowers,
-    required this.coverSm,
-    required this.avatarMd,
+    this.ownerAvatar,
     required this.displayname,
-    required this.takingComms,
-    required this.isArtist,
-    required this.isSupporter,
     required this.showStarred,
     required this.lead,
     required this.avatarSm,
@@ -56,12 +42,57 @@ class ItakuUser {
     required this.matureProfile,
     required this.owner,
     required this.objTags,
+  });
+
+  factory ItakuUserCompact.fromJson(Map<String, dynamic> json) =>
+      _$ItakuUserCompactFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuUserCompactToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuUser extends ItakuUserCompact {
+  final bool isStaff;
+  final int numFollowers;
+  final String coverSm;
+  final String avatarMd;
+  final bool takingComms;
+  final bool isArtist;
+  final bool isSupporter;
+  final int? pinnedItem;
+
+  ItakuUser({
+    // Super
+    required super.id,
+    required super.ownerUsername,
+    required super.isModerator,
+    required super.bookmarkedByYou,
+    required super.youFollow,
+    required super.followsYou,
+    super.ownerAvatar,
+    required super.displayname,
+    required super.showStarred,
+    required super.lead,
+    required super.avatarSm,
+    required super.coverLg,
+    required super.matureProfile,
+    required super.owner,
+    required super.objTags,
+    // This
+    required this.isStaff,
+    required this.numFollowers,
+    required this.coverSm,
+    required this.avatarMd,
+    required this.takingComms,
+    required this.isArtist,
+    required this.isSupporter,
     this.pinnedItem,
   });
 
   factory ItakuUser.fromJson(Map<String, dynamic> json) =>
       _$ItakuUserFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ItakuUserToJson(this);
 }
 

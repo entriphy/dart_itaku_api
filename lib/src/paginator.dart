@@ -17,12 +17,12 @@ class ItakuPaginator<T> {
   List<T> get results => _results;
 
   Future<ItakuPaginator<T>> nextPage() async {
-    final res = await _api.request(_links.next!);
+    final res = await _api.get(_links.next!);
     return ItakuPaginator<T>.fromJson(res, _fromJson, _api);
   }
 
   Future<ItakuPaginator<T>> previousPage() async {
-    final res = await _api.request(_links.previous!);
+    final res = await _api.get(_links.previous!);
     return ItakuPaginator<T>.fromJson(res, _fromJson, _api);
   }
 

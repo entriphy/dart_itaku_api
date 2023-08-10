@@ -1,3 +1,4 @@
+export 'auth.dart';
 export 'comment.dart';
 export 'commission.dart';
 export 'content_object.dart';

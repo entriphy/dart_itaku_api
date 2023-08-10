@@ -8,24 +8,82 @@ class ItakuApi {
   static final String version = "1.0.0";
   static final String userAgent = "dart_itaku_api/$version";
 
-  ItakuApi()
+  /// Constructs an Itaku API instance.
+  ///
+  /// [transformer] specifies a [Dio] transformer (i.e. using isolates to
+  /// decode JSON when using Flutter).
+  ItakuApi({String? token, Transformer? transformer})
       : _dio = Dio(BaseOptions(
           baseUrl: "https://itaku.ee/api",
           headers: {
             "User-Agent": userAgent,
           },
-        ));
+        )) {
+    if (token != null) {
+      _dio.options.headers["Authorization"] = "Token $token";
+    }
+    if (transformer != null) {
+      _dio.transformer = transformer;
+    }
+  }
 
-  Future<Map<String, dynamic>> request(String url,
-      [Map<String, dynamic>? query]) async {
+  bool get isAuthenticated => _dio.options.headers.containsKey("Authorization");
+
+  Future<Map<String, dynamic>> get(String url,
+      [Map<String, dynamic>? query, bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
     final res = await _dio.get(url, queryParameters: query);
     return res.data!;
   }
 
-  Future<List<T>> requestList<T>(String url,
-      [Map<String, dynamic>? query]) async {
+  Future<List<T>> getList<T>(String url,
+      [Map<String, dynamic>? query, bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
     final res = await _dio.get(url, queryParameters: query);
     return List<T>.from(res.data!);
+  }
+
+  Future<T> getRaw<T>(String url,
+      [Map<String, dynamic>? query, bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
+    final res = await _dio.get(url, queryParameters: query);
+    return res.data!;
+  }
+
+  Future<Map<String, dynamic>> post(String url,
+      [Map<String, dynamic>? data, bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
+    final res = await _dio.post(url, data: data);
+    return res.data!;
+  }
+
+  Future<List<T>> postList<T>(String url,
+      [Map<String, dynamic>? data, bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
+    final res = await _dio.post(url, data: data);
+    return List<T>.from(res.data!);
+  }
+
+  Future<void> delete(String url, [bool checkAuth = false]) async {
+    if (checkAuth && !isAuthenticated) {
+      throw ItakuUnauthenticatedException("Not authenticated.");
+    }
+    await _dio.delete(url);
+  }
+
+  Future<String> getVersion() async {
+    final res = await getRaw<String>("/status/version/");
+    return res;
   }
 
   Future<ItakuPaginator<ItakuFeedItem>> getFeed({
@@ -59,7 +117,7 @@ class ItakuApi {
       if (cursor != null) "cursor": cursor,
     };
 
-    final res = await request("/feed/", query);
+    final res = await get("/feed/", query);
     return ItakuPaginator<ItakuFeedItem>.fromJson(
         res, ItakuFeedItem.fromJson, this);
   }
@@ -107,12 +165,12 @@ class ItakuApi {
       if (cursor != null) "cursor": cursor,
     };
 
-    final res = await request("/galleries/images/", query);
+    final res = await get("/galleries/images/", query);
     return ItakuPaginator<ItakuImage>.fromJson(res, ItakuImage.fromJson, this);
   }
 
   Future<ItakuImageFull> getImage(int id) async {
-    final res = await request("/galleries/images/$id/");
+    final res = await get("/galleries/images/$id/");
     return ItakuImageFull.fromJson(res);
   }
 
@@ -128,7 +186,7 @@ class ItakuApi {
       "child_page_size": childPageSize
     };
 
-    final res = await request("/galleries/images/$id/comments/", query);
+    final res = await get("/galleries/images/$id/comments/", query);
     return ItakuPaginator<ItakuComment>.fromJson(
         res, ItakuComment.fromJson, this);
   }
@@ -170,12 +228,12 @@ class ItakuApi {
       if (cursor != null) "cursor": cursor,
     };
 
-    final res = await request("/posts/", query);
+    final res = await get("/posts/", query);
     return ItakuPaginator<ItakuPost>.fromJson(res, ItakuPost.fromJson, this);
   }
 
   Future<ItakuPost> getPost(int id) async {
-    final res = await request("/posts/$id/");
+    final res = await get("/posts/$id/");
     return ItakuPost.fromJson(res);
   }
 
@@ -191,7 +249,7 @@ class ItakuApi {
       "child_page_size": childPageSize
     };
 
-    final res = await request("/posts/$id/comments/", query);
+    final res = await get("/posts/$id/comments/", query);
     return ItakuPaginator<ItakuComment>.fromJson(
         res, ItakuComment.fromJson, this);
   }
@@ -242,13 +300,13 @@ class ItakuApi {
       if (cursor != null) "cursor": cursor,
     };
 
-    final res = await request("/commissions/", query);
+    final res = await get("/commissions/", query);
     return ItakuPaginator<ItakuCommission>.fromJson(
         res, ItakuCommission.fromJson, this);
   }
 
   Future<ItakuCommissionFull> getCommission(int id) async {
-    final res = await request("/commissions/$id/");
+    final res = await get("/commissions/$id/");
     return ItakuCommissionFull.fromJson(res);
   }
 
@@ -264,13 +322,13 @@ class ItakuApi {
       "child_page_size": childPageSize
     };
 
-    final res = await request("/commissions/$id/comments/", query);
+    final res = await get("/commissions/$id/comments/", query);
     return ItakuPaginator<ItakuComment>.fromJson(
         res, ItakuComment.fromJson, this);
   }
 
   Future<List<ItakuImage>> getCommissionFinishedImages(int id) async {
-    final res = await requestList<Map<String, dynamic>>(
+    final res = await getList<Map<String, dynamic>>(
         "/commissions/$id/get_finished_work_gallery_images/");
     return res.map((img) => ItakuImage.fromJson(img)).toList();
   }
@@ -315,18 +373,18 @@ class ItakuApi {
       if (cursor != null) "cursor": cursor,
     };
 
-    final res = await request("/user_profiles/", query);
+    final res = await get("/user_profiles/", query);
     return ItakuPaginator<ItakuUser>.fromJson(res, ItakuUser.fromJson, this);
   }
 
   Future<ItakuUserProfile> getUserProfile(String username) async {
-    final res = await request("/user_profiles/$username/");
+    final res = await get("/user_profiles/$username/");
     return ItakuUserProfile.fromJson(res);
   }
 
   Future<ItakuNSFWProfile?> getNSFWProfile(String username) async {
     try {
-      final res = await request("/nsfw_profiles/$username/");
+      final res = await get("/nsfw_profiles/$username/");
       return ItakuNSFWProfile.fromJson(res);
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
@@ -338,7 +396,7 @@ class ItakuApi {
 
   Future<List<ItakuCommissionTier>> getUserCommissionTiers(
       String username) async {
-    final res = await requestList<Map<String, dynamic>>(
+    final res = await getList<Map<String, dynamic>>(
         "/user_profiles/$username/commission_info/");
     return res.map((img) => ItakuCommissionTier.fromJson(img)).toList();
   }
@@ -346,7 +404,7 @@ class ItakuApi {
   Future<List<ItakuBookmarkFolder>> getUserImageBookmarkFolders(
       int owner) async {
     final query = {"owner": owner};
-    final res = await requestList<Map<String, dynamic>>(
+    final res = await getList<Map<String, dynamic>>(
         "/gallery_bookmark_folders/", query);
     return res.map((img) => ItakuBookmarkFolder.fromJson(img)).toList();
   }
@@ -355,17 +413,32 @@ class ItakuApi {
       int owner) async {
     // perhaps this function should be slightly renamed :p
     final query = {"owner": owner};
-    final res = await requestList<Map<String, dynamic>>(
-        "/user_bookmark_folders/", query);
+    final res =
+        await getList<Map<String, dynamic>>("/user_bookmark_folders/", query);
     return res.map((img) => ItakuBookmarkFolder.fromJson(img)).toList();
   }
 
   Future<ItakuUserLatestContent> getUserLatestContent(String username) async {
-    final res = await request("/user_profiles/$username/latest_content/");
+    final res = await get("/user_profiles/$username/latest_content/");
     return ItakuUserLatestContent.fromJson(res);
   }
 
-  Future<ItakuPaginator<ItakuTagFull>> getTags({
+  Future<ItakuPaginator<ItakuTag>> getTags({
+    String? name,
+    String? type = "",
+    bool showAllMaturity = true,
+  }) async {
+    final query = {
+      if (name != null) "name": name,
+      if (type != null) "type": type,
+      "show_all_maturity": showAllMaturity,
+    };
+
+    final res = await get("/tags/", query);
+    return ItakuPaginator<ItakuTag>.fromJson(res, ItakuTag.fromJson, this);
+  }
+
+  Future<ItakuPaginator<ItakuTagFull>> getTagsDetailed({
     ItakuOrdering ordering = ItakuOrdering.numObjects,
     bool descending = true,
     Iterable<ItakuMaturityRating>? maturityRating = const [
@@ -394,13 +467,89 @@ class ItakuApi {
       "page_size": pageSize,
     };
 
-    final res = await request("/tags/detailed/", query);
+    final res = await get("/tags/detailed/", query);
     return ItakuPaginator<ItakuTagFull>.fromJson(
         res, ItakuTagFull.fromJson, this);
   }
 
   Future<ItakuTagFull> getTag(int id) async {
-    final res = await request("/tags/$id/");
+    final res = await get("/tags/$id/");
     return ItakuTagFull.fromJson(res);
+  }
+
+  Future<List<ItakuTagCompact>> getSuggestedTags(List<String> tags) async {
+    final res = await postList("/tags/suggest_tags/", {"tags": tags});
+    return res.map((set) => ItakuTagCompact.fromJson(set)).toList();
+  }
+
+  Future<List<ItakuTagCompact>> getDefaultSuggestedTags() async {
+    final res =
+        await getList<Map<String, dynamic>>("/tags/default_suggested_tags/");
+    return res.map((set) => ItakuTagCompact.fromJson(set)).toList();
+  }
+
+  Future<ItakuAuthUserLogin> login(String username, String password) async {
+    final data = {"username": username, "password": password};
+    try {
+      final res = await post("/auth/login/", data);
+      return ItakuAuthUserLogin.fromJson(res);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        throw ItakuAuthException.fromJson(e.response!.data);
+      }
+      rethrow;
+    }
+  }
+
+  Future<ItakuAuthUser?> setAuthToken(String token,
+      {bool verify = false}) async {
+    try {
+      _dio.options.headers["Authorization"] = "Token $token";
+      if (verify) {
+        return getAuthUser();
+      } else {
+        return null;
+      }
+    } catch (e) {
+      _dio.options.headers.remove("Authorization");
+      rethrow;
+    }
+  }
+
+  Future<ItakuAuthUser> getAuthUser() async {
+    final res = await get("/auth/user/", null, true);
+    return ItakuAuthUser.fromJson(res);
+  }
+
+  Future<ItakuAuthUserMeta> getAuthUserMeta() async {
+    final res = await get("/auth/user_metas/", null, true);
+    return ItakuAuthUserMeta.fromJson(res);
+  }
+
+  Future<List<ItakuAuthUserTagSet>> getAuthUserTagSets() async {
+    final res = await getList<Map<String, dynamic>>("/tag_sets/", null, true);
+    return res.map((set) => ItakuAuthUserTagSet.fromJson(set)).toList();
+  }
+
+  Future<ItakuAuthUserTagSet> createAuthUserTagSet(
+      String name, List<ItakuTagCompact> tags) async {
+    final res = await post("/tag_sets/",
+        {"name": name, "tags": tags.map((tag) => tag.toJson()).toList()}, true);
+    return ItakuAuthUserTagSet.fromJson(res);
+  }
+
+  Future<void> deleteAuthUserTagSet(int id) async {
+    return delete("/tag_sets/$id/", true);
+  }
+
+  Future<ItakuAuthUserBlacklistedBlockedUsers>
+      getAuthUserBlacklistedBlockedUsers() async {
+    final res = await get("/user_metas/blacklisted_and_blocked_users/");
+    return ItakuAuthUserBlacklistedBlockedUsers.fromJson(res);
+  }
+
+  Future<bool> getAuthUserEmailVerified() async {
+    final res = await getRaw<bool>("/email/verified/");
+    return res;
   }
 }

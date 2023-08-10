@@ -5,18 +5,32 @@ import 'enums.dart';
 part 'tag.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuTag {
+class ItakuTagCompact {
   final int id;
-  final ItakuMaturityRating maturityRating;
   final String name;
+
+  ItakuTagCompact({
+    required this.id,
+    required this.name,
+  });
+
+  factory ItakuTagCompact.fromJson(Map<String, dynamic> json) =>
+      _$ItakuTagCompactFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuTagCompactToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuTag extends ItakuTagCompact {
+  final ItakuMaturityRating maturityRating;
   final int numObjects;
   final ItakuTag? synonymousTo;
   final ItakuTagType tagType;
 
   ItakuTag({
-    required this.id,
+    required super.id,
+    required super.name,
     required this.maturityRating,
-    required this.name,
     required this.numObjects,
     this.synonymousTo,
     required this.tagType,
@@ -25,6 +39,7 @@ class ItakuTag {
   factory ItakuTag.fromJson(Map<String, dynamic> json) =>
       _$ItakuTagFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ItakuTagToJson(this);
 }
 

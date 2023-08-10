@@ -2,15 +2,16 @@ import 'package:itaku_api/itaku_api.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
+  ItakuApi api = ItakuApi();
 
-    setUp(() {
-      // Additional setup goes here.
-    });
+  test("Trending feed for today is fetchable", () async {
+    List<ItakuFeedItem> results = [];
+    ItakuPaginator<ItakuFeedItem>? page;
+    do {
+      page = page == null ? await api.getFeed() : await page.nextPage();
+      results.addAll(page.results);
+    } while (page.hasNext);
 
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
+    expect(results.length, isNonZero);
   });
 }

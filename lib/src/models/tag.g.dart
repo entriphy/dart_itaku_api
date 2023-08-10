@@ -6,11 +6,23 @@ part of 'tag.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+ItakuTagCompact _$ItakuTagCompactFromJson(Map<String, dynamic> json) =>
+    ItakuTagCompact(
+      id: json['id'] as int,
+      name: json['name'] as String,
+    );
+
+Map<String, dynamic> _$ItakuTagCompactToJson(ItakuTagCompact instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+    };
+
 ItakuTag _$ItakuTagFromJson(Map<String, dynamic> json) => ItakuTag(
       id: json['id'] as int,
+      name: json['name'] as String,
       maturityRating:
           $enumDecode(_$ItakuMaturityRatingEnumMap, json['maturity_rating']),
-      name: json['name'] as String,
       numObjects: json['num_objects'] as int,
       synonymousTo: json['synonymous_to'] == null
           ? null
@@ -20,8 +32,8 @@ ItakuTag _$ItakuTagFromJson(Map<String, dynamic> json) => ItakuTag(
 
 Map<String, dynamic> _$ItakuTagToJson(ItakuTag instance) => <String, dynamic>{
       'id': instance.id,
-      'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'name': instance.name,
+      'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'num_objects': instance.numObjects,
       'synonymous_to': instance.synonymousTo,
       'tag_type': _$ItakuTagTypeEnumMap[instance.tagType]!,
@@ -85,8 +97,8 @@ ItakuTagFull _$ItakuTagFullFromJson(Map<String, dynamic> json) => ItakuTagFull(
 Map<String, dynamic> _$ItakuTagFullToJson(ItakuTagFull instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'name': instance.name,
+      'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'num_objects': instance.numObjects,
       'synonymous_to': instance.synonymousTo,
       'tag_type': _$ItakuTagTypeEnumMap[instance.tagType]!,
