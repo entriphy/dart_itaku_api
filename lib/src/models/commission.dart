@@ -40,7 +40,7 @@ class ItakuCommission extends ItakuContentObject {
   final ItakuCommissionStatus status;
   final int thumbnail;
   final ItakuImage thumbnailDetail;
-  final ({int timeRemaining, double completedPercentage}) timeData;
+  final ItakuCommissionTimeData timeData;
   final String title;
   final bool tooMature;
 
@@ -181,4 +181,20 @@ class ItakuCommissionTier {
       _$ItakuCommissionTierFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItakuCommissionTierToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuCommissionTimeData {
+  final int timeRemaining;
+  final double completedPercentage;
+
+  ItakuCommissionTimeData({
+    required this.timeRemaining,
+    required this.completedPercentage,
+  });
+
+  factory ItakuCommissionTimeData.fromJson(Map<String, dynamic> json) =>
+      _$ItakuCommissionTimeDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuCommissionTimeDataToJson(this);
 }

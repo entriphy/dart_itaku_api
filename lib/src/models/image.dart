@@ -12,11 +12,7 @@ part 'image.g.dart';
 class ItakuImage extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool animated;
-  final ({
-    bool isBlacklisted,
-    List<ItakuTag> blacklistedTags,
-    List<String>? tags
-  }) blacklisted;
+  final ItakuImageBlacklist blacklisted;
   final bool bookmarkedByYou;
   final String? contentWarning;
   final int id;
@@ -126,6 +122,24 @@ class ItakuImageFull extends ItakuImage {
 
   @override
   Map<String, dynamic> toJson() => _$ItakuImageFullToJson(this);
+}
+
+@JsonSerializable()
+class ItakuImageBlacklist {
+  final bool isBlacklisted;
+  final List<ItakuTag> blacklistedTags;
+  final List<String>? tags;
+
+  ItakuImageBlacklist({
+    required this.isBlacklisted,
+    required this.blacklistedTags,
+    this.tags,
+  });
+
+  factory ItakuImageBlacklist.fromJson(Map<String, dynamic> json) =>
+      _$ItakuImageBlacklistFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItakuImageBlacklistToJson(this);
 }
 
 @JsonSerializable()
