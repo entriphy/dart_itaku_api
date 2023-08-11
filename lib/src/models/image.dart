@@ -12,7 +12,11 @@ part 'image.g.dart';
 class ItakuImage extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool animated;
-  final ItakuImageBlacklist blacklisted;
+  final ({
+    bool isBlacklisted,
+    List<ItakuTag> blacklistedTags,
+    List<String>? tags
+  }) blacklisted;
   final bool bookmarkedByYou;
   final String? contentWarning;
   final int id;
@@ -125,25 +129,7 @@ class ItakuImageFull extends ItakuImage {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuImageBlacklist {
-  final bool isBlacklisted;
-  final List<ItakuTag> blacklistedTags;
-  final List<String>? tags;
-
-  ItakuImageBlacklist({
-    required this.isBlacklisted,
-    required this.blacklistedTags,
-    this.tags,
-  });
-
-  factory ItakuImageBlacklist.fromJson(Map<String, dynamic> json) =>
-      _$ItakuImageBlacklistFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ItakuImageBlacklistToJson(this);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class ItakuImageVideo {
+class ItakuVideo {
   final DateTime dateAdded;
   final String filesize;
   final int id;
@@ -151,7 +137,7 @@ class ItakuImageVideo {
   final int thumbnail;
   final String video;
 
-  ItakuImageVideo({
+  ItakuVideo({
     required this.dateAdded,
     required this.filesize,
     required this.id,
@@ -160,8 +146,8 @@ class ItakuImageVideo {
     required this.video,
   });
 
-  factory ItakuImageVideo.fromJson(Map<String, dynamic> json) =>
-      _$ItakuImageVideoFromJson(json);
+  factory ItakuVideo.fromJson(Map<String, dynamic> json) =>
+      _$ItakuVideoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ItakuImageVideoToJson(this);
+  Map<String, dynamic> toJson() => _$ItakuVideoToJson(this);
 }

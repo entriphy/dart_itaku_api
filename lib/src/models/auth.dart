@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 import 'tag.dart';
@@ -160,6 +159,36 @@ class ItakuAuthUserNotification {
       _$ItakuAuthUserNotificationFromJson(json);
 
   Map<String, dynamic> toJson() => _$ItakuAuthUserNotificationToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ItakuAuthUserUnreadNotificationCounts {
+  final int commissionRequests;
+  final int messages;
+  final ({
+    int all,
+    int comments,
+    int mentions,
+    int other,
+    int stars
+  }) notifications;
+  final int tagSuggestions;
+  final int unreadSubmissions;
+
+  ItakuAuthUserUnreadNotificationCounts({
+    required this.commissionRequests,
+    required this.messages,
+    required this.notifications,
+    required this.tagSuggestions,
+    required this.unreadSubmissions,
+  });
+
+  factory ItakuAuthUserUnreadNotificationCounts.fromJson(
+          Map<String, dynamic> json) =>
+      _$ItakuAuthUserUnreadNotificationCountsFromJson(json);
+
+  Map<String, dynamic> toJson() =>
+      _$ItakuAuthUserUnreadNotificationCountsToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)

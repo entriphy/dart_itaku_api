@@ -9,8 +9,18 @@ part of 'image.dart';
 ItakuImage _$ItakuImageFromJson(Map<String, dynamic> json) => ItakuImage(
       alreadyPinned: json['already_pinned'] as bool?,
       animated: json['animated'] as bool,
-      blacklisted: ItakuImageBlacklist.fromJson(
-          json['blacklisted'] as Map<String, dynamic>),
+      blacklisted: _$recordConvert(
+        json['blacklisted'],
+        ($jsonValue) => (
+          blacklistedTags: ($jsonValue['blacklistedTags'] as List<dynamic>)
+              .map((e) => ItakuTag.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          isBlacklisted: $jsonValue['isBlacklisted'] as bool,
+          tags: ($jsonValue['tags'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+        ),
+      ),
       bookmarkedByYou: json['bookmarked_by_you'] as bool,
       contentWarning: json['content_warning'] as String?,
       id: json['id'] as int,
@@ -35,7 +45,11 @@ Map<String, dynamic> _$ItakuImageToJson(ItakuImage instance) =>
     <String, dynamic>{
       'already_pinned': instance.alreadyPinned,
       'animated': instance.animated,
-      'blacklisted': instance.blacklisted,
+      'blacklisted': {
+        'blacklistedTags': instance.blacklisted.blacklistedTags,
+        'isBlacklisted': instance.blacklisted.isBlacklisted,
+        'tags': instance.blacklisted.tags,
+      },
       'bookmarked_by_you': instance.bookmarkedByYou,
       'content_warning': instance.contentWarning,
       'id': instance.id,
@@ -55,6 +69,12 @@ Map<String, dynamic> _$ItakuImageToJson(ItakuImage instance) =>
       'too_mature': instance.tooMature,
     };
 
+$Rec _$recordConvert<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    convert(value as Map<String, dynamic>);
+
 const _$ItakuMaturityRatingEnumMap = {
   ItakuMaturityRating.sfw: 'SFW',
   ItakuMaturityRating.questionable: 'Questionable',
@@ -66,8 +86,18 @@ ItakuImageFull _$ItakuImageFullFromJson(Map<String, dynamic> json) =>
     ItakuImageFull(
       alreadyPinned: json['already_pinned'] as bool?,
       animated: json['animated'] as bool,
-      blacklisted: ItakuImageBlacklist.fromJson(
-          json['blacklisted'] as Map<String, dynamic>),
+      blacklisted: _$recordConvert(
+        json['blacklisted'],
+        ($jsonValue) => (
+          blacklistedTags: ($jsonValue['blacklistedTags'] as List<dynamic>)
+              .map((e) => ItakuTag.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          isBlacklisted: $jsonValue['isBlacklisted'] as bool,
+          tags: ($jsonValue['tags'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
+        ),
+      ),
       bookmarkedByYou: json['bookmarked_by_you'] as bool,
       contentWarning: json['content_warning'] as String?,
       id: json['id'] as int,
@@ -118,7 +148,11 @@ Map<String, dynamic> _$ItakuImageFullToJson(ItakuImageFull instance) =>
     <String, dynamic>{
       'already_pinned': instance.alreadyPinned,
       'animated': instance.animated,
-      'blacklisted': instance.blacklisted,
+      'blacklisted': {
+        'blacklistedTags': instance.blacklisted.blacklistedTags,
+        'isBlacklisted': instance.blacklisted.isBlacklisted,
+        'tags': instance.blacklisted.tags,
+      },
       'bookmarked_by_you': instance.bookmarkedByYou,
       'content_warning': instance.contentWarning,
       'id': instance.id,
@@ -167,25 +201,7 @@ const _$ItakuVisibilityEnumMap = {
   ItakuVisibility.profileOnly: 'PROFILE_ONLY',
 };
 
-ItakuImageBlacklist _$ItakuImageBlacklistFromJson(Map<String, dynamic> json) =>
-    ItakuImageBlacklist(
-      isBlacklisted: json['is_blacklisted'] as bool,
-      blacklistedTags: (json['blacklisted_tags'] as List<dynamic>)
-          .map((e) => ItakuTag.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    );
-
-Map<String, dynamic> _$ItakuImageBlacklistToJson(
-        ItakuImageBlacklist instance) =>
-    <String, dynamic>{
-      'is_blacklisted': instance.isBlacklisted,
-      'blacklisted_tags': instance.blacklistedTags,
-      'tags': instance.tags,
-    };
-
-ItakuImageVideo _$ItakuImageVideoFromJson(Map<String, dynamic> json) =>
-    ItakuImageVideo(
+ItakuVideo _$ItakuVideoFromJson(Map<String, dynamic> json) => ItakuVideo(
       dateAdded: DateTime.parse(json['date_added'] as String),
       filesize: json['filesize'] as String,
       id: json['id'] as int,
@@ -194,7 +210,7 @@ ItakuImageVideo _$ItakuImageVideoFromJson(Map<String, dynamic> json) =>
       video: json['video'] as String,
     );
 
-Map<String, dynamic> _$ItakuImageVideoToJson(ItakuImageVideo instance) =>
+Map<String, dynamic> _$ItakuVideoToJson(ItakuVideo instance) =>
     <String, dynamic>{
       'date_added': instance.dateAdded.toIso8601String(),
       'filesize': instance.filesize,

@@ -166,6 +166,48 @@ Map<String, dynamic> _$ItakuAuthUserNotificationToJson(
       'resource': instance.resource,
     };
 
+ItakuAuthUserUnreadNotificationCounts
+    _$ItakuAuthUserUnreadNotificationCountsFromJson(
+            Map<String, dynamic> json) =>
+        ItakuAuthUserUnreadNotificationCounts(
+          commissionRequests: json['commission_requests'] as int,
+          messages: json['messages'] as int,
+          notifications: _$recordConvert(
+            json['notifications'],
+            ($jsonValue) => (
+              all: $jsonValue['all'] as int,
+              comments: $jsonValue['comments'] as int,
+              mentions: $jsonValue['mentions'] as int,
+              other: $jsonValue['other'] as int,
+              stars: $jsonValue['stars'] as int,
+            ),
+          ),
+          tagSuggestions: json['tag_suggestions'] as int,
+          unreadSubmissions: json['unread_submissions'] as int,
+        );
+
+Map<String, dynamic> _$ItakuAuthUserUnreadNotificationCountsToJson(
+        ItakuAuthUserUnreadNotificationCounts instance) =>
+    <String, dynamic>{
+      'commission_requests': instance.commissionRequests,
+      'messages': instance.messages,
+      'notifications': {
+        'all': instance.notifications.all,
+        'comments': instance.notifications.comments,
+        'mentions': instance.notifications.mentions,
+        'other': instance.notifications.other,
+        'stars': instance.notifications.stars,
+      },
+      'tag_suggestions': instance.tagSuggestions,
+      'unread_submissions': instance.unreadSubmissions,
+    };
+
+$Rec _$recordConvert<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    convert(value as Map<String, dynamic>);
+
 ItakuAuthException _$ItakuAuthExceptionFromJson(Map<String, dynamic> json) =>
     ItakuAuthException(
       username: (json['username'] as List<dynamic>?)

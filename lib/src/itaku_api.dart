@@ -516,6 +516,10 @@ class ItakuApi {
     }
   }
 
+  void clearAuthToken() {
+    _dio.options.headers.remove("Authorization");
+  }
+
   Future<ItakuAuthUser> getAuthUser() async {
     final res = await get("/auth/user/", null, true);
     return ItakuAuthUser.fromJson(res);
@@ -544,12 +548,41 @@ class ItakuApi {
 
   Future<ItakuAuthUserBlacklistedBlockedUsers>
       getAuthUserBlacklistedBlockedUsers() async {
-    final res = await get("/user_metas/blacklisted_and_blocked_users/");
+    final res =
+        await get("/user_metas/blacklisted_and_blocked_users/", null, true);
     return ItakuAuthUserBlacklistedBlockedUsers.fromJson(res);
   }
 
   Future<bool> getAuthUserEmailVerified() async {
-    final res = await getRaw<bool>("/email/verified/");
+    final res = await getRaw<bool>("/email/verified/", null, true);
     return res;
+  }
+
+  Future<ItakuPaginator<ItakuAuthUserNotification>> getAuthUserNotifications({
+    int page = 1,
+    int pageSize = 10,
+    List<String>? actionType,
+    List<String>? excludeAction,
+  }) async {
+    final query = {
+      "page": page,
+      "page_size": pageSize,
+      if (actionType != null) "action_type": actionType,
+      if (excludeAction != null) "exclude_action": excludeAction
+    };
+
+    final res = await get("/notifications/", query, true);
+    return ItakuPaginator<ItakuAuthUserNotification>.fromJson(
+        res, ItakuAuthUserNotification.fromJson, this);
+  }
+
+  Future<ItakuAuthUserUnreadNotificationCounts>
+      getAuthUserUnreadNotificationCounts() async {
+    final res = await get("/notifications/get_bulk_unread_notifs", null, true);
+    return ItakuAuthUserUnreadNotificationCounts.fromJson(res);
+  }
+
+  Future<void> readAuthUserNotifications() async {
+    await get("/notifications/read_all/", null, true);
   }
 }

@@ -47,8 +47,14 @@ ItakuCommission _$ItakuCommissionFromJson(Map<String, dynamic> json) =>
       thumbnail: json['thumbnail'] as int,
       thumbnailDetail:
           ItakuImage.fromJson(json['thumbnail_detail'] as Map<String, dynamic>),
-      timeData: ItakuCommissionTimeData.fromJson(
-          json['time_data'] as Map<String, dynamic>),
+      timeData: _$recordConvert(
+        json['time_data'],
+        ($jsonValue) => (
+          completedPercentage:
+              ($jsonValue['completedPercentage'] as num).toDouble(),
+          timeRemaining: $jsonValue['timeRemaining'] as int,
+        ),
+      ),
       title: json['title'] as String,
       tooMature: json['too_mature'] as bool,
     );
@@ -85,7 +91,10 @@ Map<String, dynamic> _$ItakuCommissionToJson(ItakuCommission instance) =>
       'status': _$ItakuCommissionStatusEnumMap[instance.status]!,
       'thumbnail': instance.thumbnail,
       'thumbnail_detail': instance.thumbnailDetail,
-      'time_data': instance.timeData,
+      'time_data': {
+        'completedPercentage': instance.timeData.completedPercentage,
+        'timeRemaining': instance.timeData.timeRemaining,
+      },
       'title': instance.title,
       'too_mature': instance.tooMature,
     };
@@ -109,6 +118,12 @@ const _$ItakuCommissionStatusEnumMap = {
   ItakuCommissionStatus.offer: 'DOING',
   ItakuCommissionStatus.inactive: 'INACTIVE',
 };
+
+$Rec _$recordConvert<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    convert(value as Map<String, dynamic>);
 
 ItakuCommissionFull _$ItakuCommissionFullFromJson(Map<String, dynamic> json) =>
     ItakuCommissionFull(
@@ -151,8 +166,14 @@ ItakuCommissionFull _$ItakuCommissionFullFromJson(Map<String, dynamic> json) =>
       thumbnail: json['thumbnail'] as int,
       thumbnailDetail:
           ItakuImage.fromJson(json['thumbnail_detail'] as Map<String, dynamic>),
-      timeData: ItakuCommissionTimeData.fromJson(
-          json['time_data'] as Map<String, dynamic>),
+      timeData: _$recordConvert(
+        json['time_data'],
+        ($jsonValue) => (
+          completedPercentage:
+              ($jsonValue['completedPercentage'] as num).toDouble(),
+          timeRemaining: $jsonValue['timeRemaining'] as int,
+        ),
+      ),
       title: json['title'] as String,
       tooMature: json['too_mature'] as bool,
       finishedWorkGalleryImages:
@@ -205,7 +226,10 @@ Map<String, dynamic> _$ItakuCommissionFullToJson(
       'status': _$ItakuCommissionStatusEnumMap[instance.status]!,
       'thumbnail': instance.thumbnail,
       'thumbnail_detail': instance.thumbnailDetail,
-      'time_data': instance.timeData,
+      'time_data': {
+        'completedPercentage': instance.timeData.completedPercentage,
+        'timeRemaining': instance.timeData.timeRemaining,
+      },
       'title': instance.title,
       'too_mature': instance.tooMature,
       'finished_work_gallery_images': instance.finishedWorkGalleryImages,
@@ -215,20 +239,6 @@ Map<String, dynamic> _$ItakuCommissionFullToJson(
       'num_pending_join_reqs': instance.numPendingJoinReqs,
       'reference_gallery_sections': instance.referenceGallerySections,
       'tags': instance.tags,
-    };
-
-ItakuCommissionTimeData _$ItakuCommissionTimeDataFromJson(
-        Map<String, dynamic> json) =>
-    ItakuCommissionTimeData(
-      timeRemaining: json['time_remaining'] as int,
-      completedPercentage: (json['completed_percentage'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$ItakuCommissionTimeDataToJson(
-        ItakuCommissionTimeData instance) =>
-    <String, dynamic>{
-      'time_remaining': instance.timeRemaining,
-      'completed_percentage': instance.completedPercentage,
     };
 
 ItakuCommissionTier _$ItakuCommissionTierFromJson(Map<String, dynamic> json) =>
