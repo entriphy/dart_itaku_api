@@ -7,6 +7,7 @@ export 'enums.dart';
 export 'feed.dart';
 export 'image.dart';
 export 'post.dart';
+export 'reshare.dart';
 export 'section.dart';
 export 'tag.dart';
 export 'user.dart';
