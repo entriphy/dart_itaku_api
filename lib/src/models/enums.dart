@@ -17,27 +17,31 @@ enum ItakuMaturityRating {
   const ItakuMaturityRating(this.key);
 
   @override
-  String toString() => name;
+  String toString() => key;
 }
 
 enum ItakuContentType {
   @JsonValue("galleryimage")
-  galleryImage("galleryimage"),
+  galleryImage("galleryimage", "Gallery Image"),
 
   @JsonValue("post")
-  post("post"),
+  post("post", "Post"),
 
   @JsonValue("reshare")
-  reshare("reshare"),
+  reshare("reshare", "Reshare"),
 
   @JsonValue("commission")
-  commission("commission"),
+  commission("commission", "Commission"),
 
   @JsonValue("undefined")
-  other("undefined");
+  other("undefined", "Undefined");
 
   final String key;
-  const ItakuContentType(this.key);
+  final String name;
+  const ItakuContentType(this.key, this.name);
+
+  @override
+  String toString() => name;
 }
 
 enum ItakuVerb {
@@ -53,13 +57,17 @@ enum ItakuVerb {
 
 enum ItakuVisibility {
   @JsonValue("PUBLIC")
-  public("PUBLIC"),
+  public("PUBLIC", "Public"),
 
   @JsonValue("PROFILE_ONLY")
-  profileOnly("PROFILE_ONLY");
+  profileOnly("PROFILE_ONLY", "Profile Only");
 
   final String key;
-  const ItakuVisibility(this.key);
+  final String name;
+  const ItakuVisibility(this.key, this.name);
+
+  @override
+  String toString() => name;
 }
 
 enum ItakuOrdering {
