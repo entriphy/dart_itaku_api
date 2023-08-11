@@ -191,6 +191,20 @@ class ItakuApi {
         res, ItakuComment.fromJson, this);
   }
 
+  Future<ItakuLikeResponse> likeImage(int id) async {
+    final res = await get("/galleries/images/$id/like/", null, true);
+    return ItakuLikeResponse.fromJson(res);
+  }
+
+  Future<ItakuLikeResponse> reshareImage(int id,
+      {required bool profileOnly}) async {
+    final query = {
+      "profile_only": profileOnly,
+    };
+    final res = await get("/galleries/images/$id/reshare/", query, true);
+    return ItakuLikeResponse.fromJson(res);
+  }
+
   Future<ItakuPaginator<ItakuPost>> getPosts({
     ItakuOrdering ordering = ItakuOrdering.dateAdded,
     bool descending = true,
@@ -252,6 +266,20 @@ class ItakuApi {
     final res = await get("/posts/$id/comments/", query);
     return ItakuPaginator<ItakuComment>.fromJson(
         res, ItakuComment.fromJson, this);
+  }
+
+  Future<ItakuLikeResponse> likePost(int id) async {
+    final res = await get("/posts/$id/like/", null, true);
+    return ItakuLikeResponse.fromJson(res);
+  }
+
+  Future<ItakuLikeResponse> resharePost(int id,
+      {required bool profileOnly}) async {
+    final query = {
+      "profile_only": profileOnly,
+    };
+    final res = await get("/posts/$id/reshare/", query, true);
+    return ItakuLikeResponse.fromJson(res);
   }
 
   Future<ItakuPaginator<ItakuCommission>> getCommissions({
@@ -331,6 +359,20 @@ class ItakuApi {
     final res = await getList<Map<String, dynamic>>(
         "/commissions/$id/get_finished_work_gallery_images/");
     return res.map((img) => ItakuImage.fromJson(img)).toList();
+  }
+
+  Future<ItakuLikeResponse> likeCommission(int id) async {
+    final res = await get("/commissions/$id/like/", null, true);
+    return ItakuLikeResponse.fromJson(res);
+  }
+
+  Future<ItakuLikeResponse> reshareCommission(int id,
+      {required bool profileOnly}) async {
+    final query = {
+      "profile_only": profileOnly,
+    };
+    final res = await get("/commissions/$id/reshare/", query, true);
+    return ItakuLikeResponse.fromJson(res);
   }
 
   Future<ItakuPaginator<ItakuUser>> getUserProfiles({
