@@ -5,7 +5,7 @@ import 'content_object.dart';
 
 part 'feed.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuFeedItem {
   final bool? alreadyPinned;
   @ItakuContentObjectConverter()

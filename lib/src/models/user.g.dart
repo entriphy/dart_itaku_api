@@ -189,13 +189,13 @@ Map<String, dynamic> _$ItakuUserProfileToJson(ItakuUserProfile instance) =>
       'description': instance.description,
       'cover': instance.cover,
       'date_added': instance.dateAdded.toIso8601String(),
-      'user_sites': instance.userSites,
+      'user_sites': instance.userSites.map((e) => e.toJson()).toList(),
       'email_verified': instance.emailVerified,
-      'country': instance.country,
+      'country': instance.country?.toJson(),
       'blacklisted': instance.blacklisted,
       'blocked': instance.blocked,
       'submission_notifs_muted': instance.submissionNotifsMuted,
-      'tags': instance.tags,
+      'tags': instance.tags.map((e) => e.toJson()).toList(),
       'num_following': instance.numFollowing,
       'num_posts': instance.numPosts,
       'num_gallery_images': instance.numGalleryImages,
@@ -206,7 +206,7 @@ Map<String, dynamic> _$ItakuUserProfileToJson(ItakuUserProfile instance) =>
       'num_comments_given': instance.numCommentsGiven,
       'num_tags_suggestions': instance.numTagsSuggestions,
       'num_tags_edited': instance.numTagsEdited,
-      'badge_counts': instance.badgeCounts,
+      'badge_counts': instance.badgeCounts.map((e) => e.toJson()).toList(),
       'comm_info': instance.commInfo,
       'comm_tos': instance.commTos,
       'date_edited': instance.dateEdited?.toIso8601String(),
@@ -233,7 +233,7 @@ ItakuNSFWProfile _$ItakuNSFWProfileFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ItakuNSFWProfileToJson(ItakuNSFWProfile instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'user_sites': instance.userSites,
+      'user_sites': instance.userSites.map((e) => e.toJson()).toList(),
       'lead': instance.lead,
       'description': instance.description,
       'avatar': instance.avatar,
@@ -290,7 +290,7 @@ Map<String, dynamic> _$ItakuUserProfileBadgeCountToJson(
         ItakuUserProfileBadgeCount instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'badge': instance.badge,
+      'badge': instance.badge.toJson(),
       'count': instance.count,
       'date_earned': instance.dateEarned.toIso8601String(),
       'date_added': instance.dateAdded.toIso8601String(),
@@ -359,8 +359,11 @@ ItakuUserLatestContent _$ItakuUserLatestContentFromJson(
 Map<String, dynamic> _$ItakuUserLatestContentToJson(
         ItakuUserLatestContent instance) =>
     <String, dynamic>{
-      'latest_active_commissions': instance.latestActiveCommissions,
-      'latest_gallery_images': instance.latestGalleryImages,
-      'pinned_item': instance.pinnedItem,
-      'recently_liked_images': instance.recentlyLikedImages,
+      'latest_active_commissions':
+          instance.latestActiveCommissions.map((e) => e.toJson()).toList(),
+      'latest_gallery_images':
+          instance.latestGalleryImages.map((e) => e.toJson()).toList(),
+      'pinned_item': instance.pinnedItem?.toJson(),
+      'recently_liked_images':
+          instance.recentlyLikedImages?.map((e) => e.toJson()).toList(),
     };

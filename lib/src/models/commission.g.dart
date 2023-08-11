@@ -90,7 +90,7 @@ Map<String, dynamic> _$ItakuCommissionToJson(ItakuCommission instance) =>
       'reshared_by_you': instance.resharedByYou,
       'status': _$ItakuCommissionStatusEnumMap[instance.status]!,
       'thumbnail': instance.thumbnail,
-      'thumbnail_detail': instance.thumbnailDetail,
+      'thumbnail_detail': instance.thumbnailDetail.toJson(),
       'time_data': {
         'completedPercentage': instance.timeData.completedPercentage,
         'timeRemaining': instance.timeData.timeRemaining,
@@ -225,7 +225,7 @@ Map<String, dynamic> _$ItakuCommissionFullToJson(
       'reshared_by_you': instance.resharedByYou,
       'status': _$ItakuCommissionStatusEnumMap[instance.status]!,
       'thumbnail': instance.thumbnail,
-      'thumbnail_detail': instance.thumbnailDetail,
+      'thumbnail_detail': instance.thumbnailDetail.toJson(),
       'time_data': {
         'completedPercentage': instance.timeData.completedPercentage,
         'timeRemaining': instance.timeData.timeRemaining,
@@ -237,8 +237,9 @@ Map<String, dynamic> _$ItakuCommissionFullToJson(
       'latest_pending_join_request_id': instance.latestPendingJoinRequestId,
       'min_bid_increase': instance.minBidIncrease,
       'num_pending_join_reqs': instance.numPendingJoinReqs,
-      'reference_gallery_sections': instance.referenceGallerySections,
-      'tags': instance.tags,
+      'reference_gallery_sections':
+          instance.referenceGallerySections.map((e) => e.toJson()).toList(),
+      'tags': instance.tags.map((e) => e.toJson()).toList(),
     };
 
 ItakuCommissionTier _$ItakuCommissionTierFromJson(Map<String, dynamic> json) =>
@@ -266,7 +267,7 @@ Map<String, dynamic> _$ItakuCommissionTierToJson(
       'date_added': instance.dateAdded.toIso8601String(),
       'date_edited': instance.dateEdited?.toIso8601String(),
       'description': instance.description,
-      'gallery_image': instance.galleryImage,
+      'gallery_image': instance.galleryImage.toJson(),
       'gallery_section': instance.gallerySection,
       'id': instance.id,
       'max_price': instance.maxPrice,

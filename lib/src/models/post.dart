@@ -7,7 +7,7 @@ import 'tag.dart';
 
 part 'post.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuPost extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool canReshare;
@@ -74,7 +74,7 @@ class ItakuPost extends ItakuContentObject {
   Map<String, dynamic> toJson() => _$ItakuPostToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuPostFolder {
   final int id;
   final int numPosts;

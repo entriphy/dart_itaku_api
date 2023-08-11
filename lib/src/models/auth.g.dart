@@ -19,9 +19,9 @@ ItakuAuthUser _$ItakuAuthUserFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ItakuAuthUserToJson(ItakuAuthUser instance) =>
     <String, dynamic>{
-      'profile': instance.profile,
-      'nsfw_profile': instance.nsfwProfile,
-      'meta': instance.meta,
+      'profile': instance.profile.toJson(),
+      'nsfw_profile': instance.nsfwProfile?.toJson(),
+      'meta': instance.meta.toJson(),
     };
 
 ItakuAuthUserLogin _$ItakuAuthUserLoginFromJson(Map<String, dynamic> json) =>
@@ -39,9 +39,9 @@ ItakuAuthUserLogin _$ItakuAuthUserLoginFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ItakuAuthUserLoginToJson(ItakuAuthUserLogin instance) =>
     <String, dynamic>{
-      'profile': instance.profile,
-      'nsfw_profile': instance.nsfwProfile,
-      'meta': instance.meta,
+      'profile': instance.profile.toJson(),
+      'nsfw_profile': instance.nsfwProfile?.toJson(),
+      'meta': instance.meta.toJson(),
       'key': instance.key,
       'user': instance.user,
     };
@@ -77,7 +77,8 @@ ItakuAuthUserMeta _$ItakuAuthUserMetaFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ItakuAuthUserMetaToJson(ItakuAuthUserMeta instance) =>
     <String, dynamic>{
       'ad_mode': instance.adMode,
-      'blacklisted_tags': instance.blacklistedTags,
+      'blacklisted_tags':
+          instance.blacklistedTags.map((e) => e.toJson()).toList(),
       'blacklisted_users': instance.blacklistedUsers,
       'blocked_users': instance.blockedUsers,
       'email_updates': instance.emailUpdates,
@@ -109,7 +110,7 @@ Map<String, dynamic> _$ItakuAuthUserTagSetToJson(
       'id': instance.id,
       'name': instance.name,
       'num_tags': instance.numTags,
-      'tags': instance.tags,
+      'tags': instance.tags.map((e) => e.toJson()).toList(),
     };
 
 ItakuAuthUserBlacklistedBlockedUsers
@@ -126,8 +127,9 @@ ItakuAuthUserBlacklistedBlockedUsers
 Map<String, dynamic> _$ItakuAuthUserBlacklistedBlockedUsersToJson(
         ItakuAuthUserBlacklistedBlockedUsers instance) =>
     <String, dynamic>{
-      'blacklisted_users': instance.blacklistedUsers,
-      'blocked_users': instance.blockedUsers,
+      'blacklisted_users':
+          instance.blacklistedUsers.map((e) => e.toJson()).toList(),
+      'blocked_users': instance.blockedUsers.map((e) => e.toJson()).toList(),
     };
 
 ItakuAuthUserNotification _$ItakuAuthUserNotificationFromJson(

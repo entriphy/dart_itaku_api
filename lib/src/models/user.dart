@@ -8,7 +8,7 @@ import 'tag.dart';
 
 part 'user.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserCompact {
   final int id;
   final String ownerUsername;
@@ -50,7 +50,7 @@ class ItakuUserCompact {
   Map<String, dynamic> toJson() => _$ItakuUserCompactToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUser extends ItakuUserCompact {
   final bool isStaff;
   final int numFollowers;
@@ -126,7 +126,7 @@ abstract class ItakuProfile {
   });
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserProfile extends ItakuUser implements ItakuProfile {
   @override
   final String avatar;
@@ -226,7 +226,7 @@ class ItakuUserProfile extends ItakuUser implements ItakuProfile {
   Map<String, dynamic> toJson() => _$ItakuUserProfileToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuNSFWProfile implements ItakuProfile {
   @override
   final int id;
@@ -274,7 +274,7 @@ class ItakuNSFWProfile implements ItakuProfile {
   Map<String, dynamic> toJson() => _$ItakuNSFWProfileToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserProfileSite {
   final String name;
   final String url;
@@ -290,7 +290,7 @@ class ItakuUserProfileSite {
   Map<String, dynamic> toJson() => _$ItakuUserProfileSiteToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserProfileCountry {
   final String code;
   final String name;
@@ -306,7 +306,7 @@ class ItakuUserProfileCountry {
   Map<String, dynamic> toJson() => _$ItakuUserProfileCountryToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserProfileBadgeCount {
   final int id;
   final ItakuUserProfileBadge badge;
@@ -330,7 +330,7 @@ class ItakuUserProfileBadgeCount {
   Map<String, dynamic> toJson() => _$ItakuUserProfileBadgeCountToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserProfileBadge {
   final int id;
   final String title;
@@ -356,7 +356,7 @@ class ItakuUserProfileBadge {
   Map<String, dynamic> toJson() => _$ItakuUserProfileBadgeToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuBookmarkFolder {
   final int id;
   final int numObjects;
@@ -376,7 +376,7 @@ class ItakuBookmarkFolder {
   Map<String, dynamic> toJson() => _$ItakuBookmarkFolderToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuUserLatestContent {
   final List<ItakuCommission> latestActiveCommissions;
   final List<ItakuImage> latestGalleryImages;

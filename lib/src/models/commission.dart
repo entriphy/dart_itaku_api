@@ -8,7 +8,7 @@ import 'tag.dart';
 
 part 'commission.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuCommission extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool canReshare;
@@ -87,7 +87,7 @@ class ItakuCommission extends ItakuContentObject {
   Map<String, dynamic> toJson() => _$ItakuCommissionToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuCommissionFull extends ItakuCommission {
   final List<int> finishedWorkGalleryImages;
   final bool? joinedByYou;
@@ -149,7 +149,7 @@ class ItakuCommissionFull extends ItakuCommission {
   Map<String, dynamic> toJson() => _$ItakuCommissionFullToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuCommissionTier {
   final String currency;
   final DateTime dateAdded;

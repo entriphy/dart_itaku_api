@@ -35,7 +35,7 @@ Map<String, dynamic> _$ItakuTagToJson(ItakuTag instance) => <String, dynamic>{
       'name': instance.name,
       'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'num_objects': instance.numObjects,
-      'synonymous_to': instance.synonymousTo,
+      'synonymous_to': instance.synonymousTo?.toJson(),
       'tag_type': _$ItakuTagTypeEnumMap[instance.tagType]!,
     };
 
@@ -100,23 +100,23 @@ Map<String, dynamic> _$ItakuTagFullToJson(ItakuTagFull instance) =>
       'name': instance.name,
       'maturity_rating': _$ItakuMaturityRatingEnumMap[instance.maturityRating]!,
       'num_objects': instance.numObjects,
-      'synonymous_to': instance.synonymousTo,
+      'synonymous_to': instance.synonymousTo?.toJson(),
       'tag_type': _$ItakuTagTypeEnumMap[instance.tagType]!,
       'allowed_to_edit': instance.allowedToEdit,
       'blacklisted': instance.blacklisted,
-      'children': instance.children,
+      'children': instance.children.map((e) => e.toJson()).toList(),
       'date_added': instance.dateAdded.toIso8601String(),
       'date_edited': instance.dateEdited?.toIso8601String(),
       'description': instance.description,
-      'editors': instance.editors,
+      'editors': instance.editors.map((e) => e.toJson()).toList(),
       'has_edits': instance.hasEdits,
       'has_synonyms': instance.hasSynonyms,
       'owner': instance.owner,
       'owner_displayname': instance.ownerDisplayname,
       'owner_username': instance.ownerUsername,
-      'parents': instance.parents,
-      'synonymous': instance.synonymous,
-      'synonyms': instance.synonyms,
+      'parents': instance.parents.map((e) => e.toJson()).toList(),
+      'synonymous': instance.synonymous.map((e) => e.toJson()).toList(),
+      'synonyms': instance.synonyms.map((e) => e.toJson()).toList(),
     };
 
 ItakuTagEditor _$ItakuTagEditorFromJson(Map<String, dynamic> json) =>

@@ -17,7 +17,7 @@ ItakuSection _$ItakuSectionFromJson(Map<String, dynamic> json) => ItakuSection(
 
 Map<String, dynamic> _$ItakuSectionToJson(ItakuSection instance) =>
     <String, dynamic>{
-      'group': instance.group,
+      'group': instance.group?.toJson(),
       'id': instance.id,
       'num_images': instance.numImages,
       'title': instance.title,

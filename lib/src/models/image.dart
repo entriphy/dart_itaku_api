@@ -8,7 +8,7 @@ import 'section.dart';
 
 part 'image.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuImage extends ItakuContentObject {
   final bool? alreadyPinned;
   final bool animated;
@@ -65,7 +65,7 @@ class ItakuImage extends ItakuContentObject {
   Map<String, dynamic> toJson() => _$ItakuImageToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuImageFull extends ItakuImage {
   final Map<ItakuTagType, List<ItakuTag>> categorizedTags;
   final DateTime dateAdded;
@@ -128,7 +128,7 @@ class ItakuImageFull extends ItakuImage {
   Map<String, dynamic> toJson() => _$ItakuImageFullToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuVideo {
   final DateTime dateAdded;
   final String filesize;

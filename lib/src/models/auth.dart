@@ -5,7 +5,7 @@ import 'user.dart';
 
 part 'auth.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUser {
   final ItakuUserProfile profile;
   final ItakuNSFWProfile? nsfwProfile;
@@ -23,7 +23,7 @@ class ItakuAuthUser {
   Map<String, dynamic> toJson() => _$ItakuAuthUserToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserLogin extends ItakuAuthUser {
   final String key;
   final int user;
@@ -43,7 +43,7 @@ class ItakuAuthUserLogin extends ItakuAuthUser {
   Map<String, dynamic> toJson() => _$ItakuAuthUserLoginToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserMeta {
   final bool adMode;
   final List<ItakuTag> blacklistedTags;
@@ -85,7 +85,7 @@ class ItakuAuthUserMeta {
   Map<String, dynamic> toJson() => _$ItakuAuthUserMetaToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserTagSet {
   final int id;
   final String name;
@@ -105,7 +105,7 @@ class ItakuAuthUserTagSet {
   Map<String, dynamic> toJson() => _$ItakuAuthUserTagSetToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserBlacklistedBlockedUsers {
   final List<ItakuUserCompact> blacklistedUsers;
   final List<ItakuUserCompact> blockedUsers;
@@ -123,7 +123,7 @@ class ItakuAuthUserBlacklistedBlockedUsers {
       _$ItakuAuthUserBlacklistedBlockedUsersToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserNotification {
   final String actionType;
   final int actor;
@@ -161,7 +161,7 @@ class ItakuAuthUserNotification {
   Map<String, dynamic> toJson() => _$ItakuAuthUserNotificationToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthUserUnreadNotificationCounts {
   final int commissionRequests;
   final int messages;
@@ -191,7 +191,7 @@ class ItakuAuthUserUnreadNotificationCounts {
       _$ItakuAuthUserUnreadNotificationCountsToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuAuthException implements Exception {
   final List<String>? username;
   final List<String>? password;

@@ -30,7 +30,7 @@ ItakuComment _$ItakuCommentFromJson(Map<String, dynamic> json) => ItakuComment(
 
 Map<String, dynamic> _$ItakuCommentToJson(ItakuComment instance) =>
     <String, dynamic>{
-      'children': instance.children,
+      'children': instance.children.map((e) => e.toJson()).toList(),
       'content': instance.content,
       'date_added': instance.dateAdded.toIso8601String(),
       'date_edited': instance.dateEdited?.toIso8601String(),

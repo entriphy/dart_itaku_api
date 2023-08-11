@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'section.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuSection {
   final ItakuSectionGroup? group;
   final int id;
@@ -22,7 +22,7 @@ class ItakuSection {
   Map<String, dynamic> toJson() => _$ItakuSectionToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuSectionGroup {
   final int id;
   final int owner;

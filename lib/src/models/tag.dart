@@ -4,7 +4,7 @@ import 'enums.dart';
 
 part 'tag.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuTagCompact {
   final int id;
   final String name;
@@ -20,7 +20,7 @@ class ItakuTagCompact {
   Map<String, dynamic> toJson() => _$ItakuTagCompactToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuTag extends ItakuTagCompact {
   final ItakuMaturityRating maturityRating;
   final int numObjects;
@@ -43,7 +43,7 @@ class ItakuTag extends ItakuTagCompact {
   Map<String, dynamic> toJson() => _$ItakuTagToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuTagFull extends ItakuTag {
   final bool allowedToEdit;
   final bool blacklisted;
@@ -94,7 +94,7 @@ class ItakuTagFull extends ItakuTag {
   Map<String, dynamic> toJson() => _$ItakuTagFullToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuTagEditor {
   final String username;
   final String displayname;

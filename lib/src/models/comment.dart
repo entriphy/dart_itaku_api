@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'comment.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuComment {
   final List<ItakuComment> children;
   final String content;

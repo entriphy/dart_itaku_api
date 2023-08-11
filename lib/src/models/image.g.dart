@@ -46,7 +46,9 @@ Map<String, dynamic> _$ItakuImageToJson(ItakuImage instance) =>
       'already_pinned': instance.alreadyPinned,
       'animated': instance.animated,
       'blacklisted': {
-        'blacklistedTags': instance.blacklisted.blacklistedTags,
+        'blacklistedTags': instance.blacklisted.blacklistedTags
+            .map((e) => e.toJson())
+            .toList(),
         'isBlacklisted': instance.blacklisted.isBlacklisted,
         'tags': instance.blacklisted.tags,
       },
@@ -149,7 +151,9 @@ Map<String, dynamic> _$ItakuImageFullToJson(ItakuImageFull instance) =>
       'already_pinned': instance.alreadyPinned,
       'animated': instance.animated,
       'blacklisted': {
-        'blacklistedTags': instance.blacklisted.blacklistedTags,
+        'blacklistedTags': instance.blacklisted.blacklistedTags
+            .map((e) => e.toJson())
+            .toList(),
         'isBlacklisted': instance.blacklisted.isBlacklisted,
         'tags': instance.blacklisted.tags,
       },
@@ -170,8 +174,8 @@ Map<String, dynamic> _$ItakuImageFullToJson(ItakuImageFull instance) =>
       'show_content_warning': instance.showContentWarning,
       'title': instance.title,
       'too_mature': instance.tooMature,
-      'categorized_tags': instance.categorizedTags
-          .map((k, e) => MapEntry(_$ItakuTagTypeEnumMap[k]!, e)),
+      'categorized_tags': instance.categorizedTags.map((k, e) => MapEntry(
+          _$ItakuTagTypeEnumMap[k]!, e.map((e) => e.toJson()).toList())),
       'date_added': instance.dateAdded.toIso8601String(),
       'date_edited': instance.dateEdited?.toIso8601String(),
       'description': instance.description,
@@ -180,9 +184,9 @@ Map<String, dynamic> _$ItakuImageFullToJson(ItakuImageFull instance) =>
       'owner_avatar': instance.ownerAvatar,
       'owner_username': instance.ownerUsername,
       'reshared_by_you': instance.resharedByYou,
-      'sections': instance.sections,
+      'sections': instance.sections.map((e) => e.toJson()).toList(),
       'source_image_changed': instance.sourceImageChanged,
-      'tags': instance.tags,
+      'tags': instance.tags.map((e) => e.toJson()).toList(),
       'uncompressed_filesize': instance.uncompressedFilesize,
       'visibility': _$ItakuVisibilityEnumMap[instance.visibility]!,
     };

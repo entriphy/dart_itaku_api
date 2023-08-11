@@ -5,7 +5,7 @@ import 'enums.dart';
 
 part 'reshare.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class ItakuReshare extends ItakuContentObject {
   @ItakuContentObjectConverter()
   final ItakuContentObject contentObject;
