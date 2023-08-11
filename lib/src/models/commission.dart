@@ -21,13 +21,13 @@ class ItakuCommission extends ItakuContentObject {
   final int? highestBid;
   final int id;
   final bool isAuction;
-  final bool likedByYou;
+  bool likedByYou;
   final ItakuMaturityRating maturityRating;
   final String maxPrice;
   final String minPrice;
-  final int numComments;
-  final int numLikes;
-  final int numReshares;
+  int numComments;
+  int numLikes;
+  int numReshares;
   final int numSlots;
   final int? numSlotted;
   final int objTags;
@@ -36,7 +36,7 @@ class ItakuCommission extends ItakuContentObject {
   final String ownerDisplayname;
   final String ownerUsername;
   final List<int> referenceGalleryImages;
-  final bool resharedByYou;
+  bool resharedByYou;
   final ItakuCommissionStatus status;
   final int thumbnail;
   final ItakuImage thumbnailDetail;

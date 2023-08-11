@@ -21,11 +21,11 @@ class ItakuImage extends ItakuContentObject {
   final String? imageXl;
   final String? imageXs;
   final bool? isThumbnailForVideo;
-  final bool likedByYou;
+  bool likedByYou;
   final ItakuMaturityRating maturityRating;
-  final int numComments;
-  final int numLikes;
-  final int numReshares;
+  int numComments;
+  int numLikes;
+  int numReshares;
   final int owner;
   final dynamic showContentWarning; // Either String or bool... wtf?
   final String title;

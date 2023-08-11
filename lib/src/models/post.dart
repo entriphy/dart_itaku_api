@@ -19,11 +19,11 @@ class ItakuPost extends ItakuContentObject {
   final List<ItakuPostFolder> folders;
   final List<ItakuImage> galleryImages;
   final int id;
-  final bool likedByYou;
+  bool likedByYou;
   final ItakuMaturityRating maturityRating;
-  final int numComments;
-  final int numLikes;
-  final int numReshares;
+  int numComments;
+  int numLikes;
+  int numReshares;
   final int? numTooMatureImgs;
   final int objTags;
   final int owner;

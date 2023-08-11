@@ -9,9 +9,9 @@ class ItakuComment {
   final DateTime dateAdded;
   final DateTime? dateEdited;
   final int id;
-  final bool likedByYou;
-  final int numChildren;
-  final int numLikes;
+  bool likedByYou;
+  int numChildren;
+  int numLikes;
   final int owner;
   final String ownerAvatar;
   final String ownerDisplayname;
