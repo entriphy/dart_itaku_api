@@ -18,7 +18,7 @@ class ItakuFeedItem {
   final double hotnessScore;
   final int id;
   final ItakuMaturityRating maturityRating;
-  final int objTags;
+  final int? objTags;
   final int owner;
   final String ownerAvatar;
   final String ownerDisplayname;

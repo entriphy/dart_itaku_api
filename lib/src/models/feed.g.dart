@@ -22,7 +22,7 @@ ItakuFeedItem _$ItakuFeedItemFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       maturityRating:
           $enumDecode(_$ItakuMaturityRatingEnumMap, json['maturity_rating']),
-      objTags: json['obj_tags'] as int,
+      objTags: json['obj_tags'] as int?,
       owner: json['owner'] as int,
       ownerAvatar: json['owner_avatar'] as String,
       ownerDisplayname: json['owner_displayname'] as String,
